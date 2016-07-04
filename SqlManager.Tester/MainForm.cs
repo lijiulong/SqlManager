@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using Franksoft.SqlManager;
+
 namespace Franksoft.SqlManager.Tester
 {
     public partial class MainForm : Form
@@ -13,6 +15,8 @@ namespace Franksoft.SqlManager.Tester
         public MainForm()
         {
             InitializeComponent();
+
+            SqlManager.Instance.Test();
         }
     }
 }

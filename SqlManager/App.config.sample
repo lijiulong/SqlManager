@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section type="System.Configuration.NameValueSectionHandler" name="Models"/>
+    <section type="System.Configuration.NameValueSectionHandler" name="StandaloneQueries"/>
+  </configSections>
+  <appSettings>
+    <add key="SqlManager.ModelDirectory" value="models"/>
+  </appSettings>
+  <Models>
+    <add value="models/01.xml" />
+    <
+    <add value="models/02.xml" />
+    <add value="models/03.xml" />
+  </Models>
+  <StandaloneQueries>
+    <add value="models/04.xml" />
+    <add value="models/05.xml" />
+  </StandaloneQueries>
+</configuration>
