@@ -2,7 +2,7 @@
 
 namespace Franksoft.SqlManager
 {
-    class ModelFilePathCollectionSection : ConfigurationElementCollection
+    public class ModelFilePathCollectionSection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
         {

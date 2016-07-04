@@ -6,10 +6,8 @@ namespace Franksoft.SqlManager
     {
         public const string PATH_COLLECTION_NAME_STRING = "pathes";
 
-        public const string PATH_ADD_NAME_STRING = "path";
-
         [ConfigurationProperty(PATH_COLLECTION_NAME_STRING, IsDefaultCollection = false)]
-        [ConfigurationCollection(typeof(ModelFilePathCollectionSection), AddItemName = PATH_ADD_NAME_STRING)]
+        [ConfigurationCollection(typeof(ModelFilePathCollectionSection))]
         public ModelFilePathCollectionSection Pathes
         {
             get
