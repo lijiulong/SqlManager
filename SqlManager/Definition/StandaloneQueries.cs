@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Franksoft.SqlManager
+namespace Franksoft.SqlManager.Definition
 {
     [Serializable]
     [XmlRoot("StandaloneQueries")]
     public class StandaloneQueries : List<Sql>
     {
-        public Dictionary<string, string> ToDictionary()
+        public Dictionary<string, Sql> ToDictionary()
         {
-            var dictionary = new Dictionary<string, string>();
+            var dictionary = new Dictionary<string, Sql>();
             foreach (Sql sql in this)
             {
-                dictionary[sql.Key] = sql.Command;
+                dictionary[sql.Key] = sql;
             }
 
             return dictionary;

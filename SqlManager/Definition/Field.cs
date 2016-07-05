@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Franksoft.SqlManager
+namespace Franksoft.SqlManager.Definition
 {
     [Serializable]
     public class Field

@@ -1,0 +1,32 @@
+<StandaloneQueries>
+  <Sql Key="a" Command="1">
+    <ChildItems>
+      <SqlClause Keyword="Select">
+        <ChildItems>
+          <SqlClause Expression="O.A AS 'A'" />
+          <SqlClause Expression="O.B AS 'B'" />
+        </ChildItems>
+      </SqlClause>
+      <SqlClause Keyword="From" Expression="TableA"/>
+      <SqlClause Keyword="Where">
+        <ChildItems>
+          <SqlClause Expression="A='1'" />
+          <SqlClause LogicalOperator="And">
+            <ChildItems>
+              <SqlClause Expression="B='2'" />
+              <SqlClause LogicalOperator="Or" Expression="C='3'" />
+            </ChildItems>
+          </SqlClause>
+        </ChildItems>
+      </SqlClause>
+      <SqlClause Keyword="OrderBy">
+        <ChildItems>
+          <SqlClause Expression="C" />
+          <SqlClause Expression="D DESC" />        
+        </ChildItems>
+      </SqlClause>
+    </ChildItems>
+  </Sql>
+  <Sql Key="b" Command="2" />
+  <Sql Key="c" Command="3" />
+</StandaloneQueries>

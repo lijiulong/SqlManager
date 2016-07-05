@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
+using Franksoft.SqlManager.Definition;
+using Franksoft.SqlManager.DbProviders;
 
 namespace Franksoft.SqlManager
 {
@@ -17,7 +21,9 @@ namespace Franksoft.SqlManager
 
         public Dictionary<string, Model> Models { get; private set; }
 
-        public Dictionary<string, string> StandaloneQueries { get; private set; }
+        public Dictionary<string, Sql> StandaloneQueries { get; private set; }
+
+        public IDbProvider DbProvider { get; set; }
 
         static SqlManager()
         {
@@ -36,13 +42,22 @@ namespace Franksoft.SqlManager
                 Stream stream = new FileStream(path, FileMode.Open);
                 XmlReader reader = new XmlTextReader(stream);
 
-                if(this.ModelsXmlSerializer.CanDeserialize(reader))
+                if (this.ModelsXmlSerializer.CanDeserialize(reader))
                 {
-                    var a = this.ModelsXmlSerializer.Deserialize(reader);
+                    var models = this.ModelsXmlSerializer.Deserialize(reader) as Models;
+                    if (models != null)
+                    {
+                        this.Models = models.ToDictionary();
+                    }
                 }
                 else if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
                 {
-                    var a = this.StandaloneQueriesXmlSerializer.Deserialize(reader);
+                    var standaloneQueries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
+
+                    if (standaloneQueries != null)
+                    {
+                        this.StandaloneQueries = standaloneQueries.ToDictionary();
+                    }
                 }
             }
         }
