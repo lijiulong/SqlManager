@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using System.Configuration;
 using System.Windows.Forms;
 
-using Franksoft.SqlManager;
+using Franksoft.SqlManager.DbProviders;
 
 namespace Franksoft.SqlManager.Tester
 {
@@ -16,7 +11,11 @@ namespace Franksoft.SqlManager.Tester
         {
             InitializeComponent();
 
-            SqlManager.Instance.Test();
+            string connectionString = ConfigurationManager.ConnectionStrings["test"].ConnectionString;
+            OleDbProvider provider = new OleDbProvider(connectionString);
+
+            SqlManager.Instance.DbProvider = provider;
+            var result = SqlManager.Instance.GetStandaloneQueryResult("a");
         }
     }
 }

@@ -71,8 +71,6 @@ namespace Franksoft.SqlManager.Definition
 
             dbProvider.CommandText = this.ToString();
             dbProvider.Parameters = parameters;
-
-
             reader = dbProvider.ExecuteReader();
 
             return reader;

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Common;
 using System.IO;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -38,33 +37,67 @@ namespace Franksoft.SqlManager
             this.ModelsXmlSerializer = new XmlSerializer(typeof(Models));
             this.StandaloneQueriesXmlSerializer = new XmlSerializer(typeof(StandaloneQueries));
             foreach (string path in Initializer.Instance.ModelRegistration)
-            {
-                Stream stream = new FileStream(path, FileMode.Open);
-                XmlReader reader = new XmlTextReader(stream);
-
-                if (this.ModelsXmlSerializer.CanDeserialize(reader))
+            {                
+                using (Stream stream = new FileStream(path, FileMode.Open))
                 {
-                    var models = this.ModelsXmlSerializer.Deserialize(reader) as Models;
-                    if (models != null)
+                    using (XmlReader reader = new XmlTextReader(stream))
                     {
-                        this.Models = models.ToDictionary();
-                    }
-                }
-                else if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
-                {
-                    var standaloneQueries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
+                        if (this.ModelsXmlSerializer.CanDeserialize(reader))
+                        {
+                            var models = this.ModelsXmlSerializer.Deserialize(reader) as Models;
+                            if (models != null)
+                            {
+                                this.Models = models.ToDictionary();
+                            }
+                        }
+                        else if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
+                        {
+                            var standaloneQueries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
 
-                    if (standaloneQueries != null)
-                    {
-                        this.StandaloneQueries = standaloneQueries.ToDictionary();
+                            if (standaloneQueries != null)
+                            {
+                                this.StandaloneQueries = standaloneQueries.ToDictionary();
+                            }
+                        }
                     }
                 }
             }
         }
 
-        public void Test()
+        public SqlResult GetStandaloneQueryResult(string key)
         {
+            return GetStandaloneQueryResult(key, null);
+        }
 
+        public SqlResult GetStandaloneQueryResult(string key, Array parameters)
+        {
+            SqlResult result = null;
+
+            if (this.StandaloneQueries.ContainsKey(key))
+            {
+                Sql sql = this.StandaloneQueries[key];
+                result = sql.GetResult(this.DbProvider, parameters);
+            }
+
+            return result;
+        }
+
+        public DbDataReader GetStandaloneQueryReader(string key)
+        {
+            return GetStandaloneQueryReader(key, null);
+        }
+
+        public DbDataReader GetStandaloneQueryReader(string key, Array parameters)
+        {
+            DbDataReader reader = null;
+
+            if (this.StandaloneQueries.ContainsKey(key))
+            {
+                Sql sql = this.StandaloneQueries[key];
+                reader = sql.GetReader(this.DbProvider, parameters);
+            }
+
+            return reader;
         }
     }
 }
