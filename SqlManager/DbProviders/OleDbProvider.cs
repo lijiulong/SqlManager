@@ -7,6 +7,17 @@ namespace Franksoft.SqlManager.DbProviders
 {
     public class OleDbProvider : IDbProvider
     {
+        public OleDbProvider(string connectionString)
+        {
+            this.ConnectionString = connectionString;
+            this.Connection = new OleDbConnection(connectionString);
+            this.Command = new OleDbCommand();
+            this.Command.Connection = this.Connection;
+            this.Adapter = new OleDbDataAdapter();
+
+            this.Connection.Open();
+        }
+
         private OleDbConnection Connection { get; set; }
 
         private OleDbCommand Command { get; set; }
@@ -19,16 +30,7 @@ namespace Franksoft.SqlManager.DbProviders
 
         public Array Parameters { get; set; }
 
-        public OleDbProvider(string connectionString)
-        {
-            this.ConnectionString = connectionString;
-            this.Connection = new OleDbConnection(connectionString);
-            this.Command = new OleDbCommand();
-            this.Command.Connection = this.Connection;
-            this.Adapter = new OleDbDataAdapter();
-
-            this.Connection.Open();
-        }
+        public CommandType CommandType { get; set; }
 
         public DbTransaction BeginTransaction()
         {
@@ -110,6 +112,15 @@ namespace Franksoft.SqlManager.DbProviders
             }
             this.Adapter.SelectCommand = this.Command;
             return this.Adapter.Update(dataTable);
+        }
+
+        public DbParameter GetParameter(string parameterName, object value)
+        {
+            var parameter = this.Command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.Value = value;
+
+            return parameter;
         }
 
         public void Dispose()

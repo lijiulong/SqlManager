@@ -16,6 +16,9 @@ namespace Franksoft.SqlManager.Definition
         [XmlAttribute]
         public string Command { get; set; }
 
+        [XmlAttribute]
+        public CommandType CommandType { get; set; }
+
         public SqlResult GetResult(IDbProvider dbProvider)
         {
             return GetResult(dbProvider, null);
@@ -25,7 +28,7 @@ namespace Franksoft.SqlManager.Definition
         {
             SqlResult result = new SqlResult();
 
-            string firstCommandKeyword = GetFirstCommandKeyword();
+            string firstCommandKeyword = this.GetFirstCommandKeyword();
             SqlClause firstChildClause = null;
             if (this.ChildItems != null && this.ChildItems.Count > 0)
             {
@@ -39,6 +42,7 @@ namespace Franksoft.SqlManager.Definition
 
             dbProvider.CommandText = this.ToString();
             dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
 
             switch (firstCommandKeyword)
             {
@@ -71,6 +75,7 @@ namespace Franksoft.SqlManager.Definition
 
             dbProvider.CommandText = this.ToString();
             dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
             reader = dbProvider.ExecuteReader();
 
             return reader;

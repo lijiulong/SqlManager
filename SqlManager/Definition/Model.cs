@@ -7,6 +7,11 @@ namespace Franksoft.SqlManager.Definition
     [Serializable]
     public class Model
     {
+        public Model()
+        {
+            this.predefinedSqlDictionary = null;
+        }
+
         private Dictionary<string, Sql> predefinedSqlDictionary;
 
         [XmlAttribute]
@@ -37,11 +42,6 @@ namespace Franksoft.SqlManager.Definition
 
                 return this.predefinedSqlDictionary;
             }
-        }
-
-        public Model()
-        {
-            this.predefinedSqlDictionary = null;
         }
     }
 }

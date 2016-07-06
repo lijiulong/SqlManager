@@ -10,6 +10,8 @@ namespace Franksoft.SqlManager.DbProviders
 
         string CommandText { get; set; }
 
+        CommandType CommandType { get; set; }
+
         Array Parameters { get; set; }
 
         DbDataReader ExecuteReader();
@@ -27,5 +29,7 @@ namespace Franksoft.SqlManager.DbProviders
         DbTransaction BeginTransaction();
 
         DbTransaction BeginTransaction(IsolationLevel il);
+
+        DbParameter GetParameter(string parameterName, object value);
     }
 }

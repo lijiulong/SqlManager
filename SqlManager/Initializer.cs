@@ -6,6 +6,20 @@ namespace Franksoft.SqlManager
 {
     internal class Initializer
     {
+        static Initializer()
+        {
+            if (Instance == null)
+            {
+                Instance = new Initializer();
+            }
+        }
+
+        private Initializer()
+        {
+            InitializeMembers();
+            InitializeConfiguration();
+        }
+
         private const string MODEL_DIRECTORY_DEFAULT_VALUE = @".\";
 
         private const string MODEL_DIRECTORY_KEY = "SqlManager.ModelDirectory";
@@ -24,20 +38,6 @@ namespace Franksoft.SqlManager
             {
                 return this.Models;
             }
-        }
-
-        static Initializer()
-        {
-            if (Instance == null)
-            {
-                Instance = new Initializer();
-            }
-        }
-
-        private Initializer()
-        {
-            InitializeMembers();
-            InitializeConfiguration();
         }
 
         private void InitializeConfiguration()

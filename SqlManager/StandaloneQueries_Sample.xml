@@ -1,5 +1,5 @@
 <StandaloneQueries>
-  <Sql Key="a" Command="1">
+  <Sql Key="a" Command="1" CommandType="Text">
     <ChildItems>
       <SqlClause Keyword="Select">
         <ChildItems>
@@ -27,6 +27,6 @@
       </SqlClause>
     </ChildItems>
   </Sql>
-  <Sql Key="b" Command="2" />
-  <Sql Key="c" Command="3" />
+  <Sql Key="b" Command="2" CommandType="StoredProcedure" />
+  <Sql Key="c" Command="3" CommandType="TableDirect" />
 </StandaloneQueries>

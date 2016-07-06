@@ -12,18 +12,6 @@ namespace Franksoft.SqlManager
 {
     public class SqlManager
     {
-        private XmlSerializer ModelsXmlSerializer { get; set; }
-
-        private XmlSerializer StandaloneQueriesXmlSerializer { get; set; }
-
-        public static SqlManager Instance { get; private set; }
-
-        public Dictionary<string, Model> Models { get; private set; }
-
-        public Dictionary<string, Sql> StandaloneQueries { get; private set; }
-
-        public IDbProvider DbProvider { get; set; }
-
         static SqlManager()
         {
             if (Instance == null)
@@ -37,7 +25,7 @@ namespace Franksoft.SqlManager
             this.ModelsXmlSerializer = new XmlSerializer(typeof(Models));
             this.StandaloneQueriesXmlSerializer = new XmlSerializer(typeof(StandaloneQueries));
             foreach (string path in Initializer.Instance.ModelRegistration)
-            {                
+            {
                 using (Stream stream = new FileStream(path, FileMode.Open))
                 {
                     using (XmlReader reader = new XmlTextReader(stream))
@@ -63,6 +51,18 @@ namespace Franksoft.SqlManager
                 }
             }
         }
+
+        private XmlSerializer ModelsXmlSerializer { get; set; }
+
+        private XmlSerializer StandaloneQueriesXmlSerializer { get; set; }
+
+        public static SqlManager Instance { get; private set; }
+
+        public Dictionary<string, Model> Models { get; private set; }
+
+        public Dictionary<string, Sql> StandaloneQueries { get; private set; }
+
+        public IDbProvider DbProvider { get; set; }
 
         public SqlResult GetStandaloneQueryResult(string key)
         {
