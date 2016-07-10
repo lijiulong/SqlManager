@@ -2,16 +2,16 @@
 
 namespace Franksoft.SqlManager
 {
-    public class ModelFilePathCollectionSection : ConfigurationElementCollection
+    public class ModelRegistrationCollectionSection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
         {
-            return new ModelFilePathElement();
+            return new ModelRegistrationElement();
         }
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((ModelFilePathElement)element).Path;
+            return ((ModelRegistrationElement)element).Path;
         }
     }
 }

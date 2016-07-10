@@ -57,6 +57,8 @@ namespace Franksoft.SqlManager.Definition
                 case "DELETE":
                 case "DELETEFROM":
                 case "UPDATE":
+                case "BEGIN":
+                default:
                     result.ReturnResult = dbProvider.ExecuteNonQuery();
                     break;
             }

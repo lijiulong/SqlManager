@@ -23,10 +23,16 @@ namespace Franksoft.SqlManager.Definition
 
         OrderBy = 13,
 
-        Values = 21,
+        Fields = 21,
+
+        Values = 22,
 
         Set = 41,
 
-        Exists = 51
+        Exists = 51,
+
+        Begin = 6,
+
+        End = 7,
     }
 }

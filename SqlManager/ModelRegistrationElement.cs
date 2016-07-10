@@ -2,20 +2,20 @@
 
 namespace Franksoft.SqlManager
 {
-    public class ModelFilePathElement : ConfigurationElement
+    public class ModelRegistrationElement : ConfigurationElement
     {
-        public ModelFilePathElement(string path, string description)
+        public ModelRegistrationElement(string path, string description)
         {
             this.Path = path;
             this.Description = description;
         }
 
-        public ModelFilePathElement(string path)
+        public ModelRegistrationElement(string path)
         {
             this.Path = path;
         }
         
-        public ModelFilePathElement()
+        public ModelRegistrationElement()
         {
         }
 

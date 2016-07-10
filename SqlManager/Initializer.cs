@@ -48,10 +48,10 @@ namespace Franksoft.SqlManager
                 this.ModelDirectory = modelDirectory;
             }
 
-            var models = ConfigurationManager.GetSection(MODEL_REGISTRATION_SECTION_NAME) as ModelFileSection;
+            var models = ConfigurationManager.GetSection(MODEL_REGISTRATION_SECTION_NAME) as ModelRegistrationSection;
             if (models != null)
             {
-                foreach (ModelFilePathElement path in models.Pathes)
+                foreach (ModelRegistrationElement path in models.Pathes)
                 {
                     this.Models.Add(path.Path);
                 }

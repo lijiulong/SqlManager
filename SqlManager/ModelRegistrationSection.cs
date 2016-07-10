@@ -2,17 +2,17 @@
 
 namespace Franksoft.SqlManager
 {
-    class ModelFileSection : ConfigurationSection
+    class ModelRegistrationSection : ConfigurationSection
     {
         public const string PATH_COLLECTION_NAME_STRING = "pathes";
 
         [ConfigurationProperty(PATH_COLLECTION_NAME_STRING, IsDefaultCollection = false)]
-        [ConfigurationCollection(typeof(ModelFilePathCollectionSection))]
-        public ModelFilePathCollectionSection Pathes
+        [ConfigurationCollection(typeof(ModelRegistrationCollectionSection))]
+        public ModelRegistrationCollectionSection Pathes
         {
             get
             {
-                return (ModelFilePathCollectionSection)this[PATH_COLLECTION_NAME_STRING];
+                return (ModelRegistrationCollectionSection)this[PATH_COLLECTION_NAME_STRING];
             }
             set
             {

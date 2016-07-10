@@ -29,6 +29,10 @@ namespace Franksoft.SqlManager.Definition
 
         private const string SQLKEYWORDS_SET = "SET";
 
+        private const string SQLKEYWORDS_BEGIN = "BEGIN";
+
+        private const string SQLKEYWORDS_END = "END";
+
         private const string SQLLOGICALOPERATOR_AND = "AND";
 
         private const string SQLLOGICALOPERATOR_OR = "OR";
@@ -55,8 +59,8 @@ namespace Franksoft.SqlManager.Definition
         public override string ToString()
         {
             string result = string.Empty;
-            string keyword = GetKeyword(this.Keyword);
-            string logicalOperator = GetLogicalOperator(this.LogicalOperator);
+            string keyword = this.GetKeyword(this.Keyword);
+            string logicalOperator = this.GetLogicalOperator(this.LogicalOperator);
             string expression = this.Expression;
             string childItems = string.Empty;
             bool childHasLogicalOperator = false;
@@ -85,22 +89,24 @@ namespace Franksoft.SqlManager.Definition
             if (this.LogicalOperator == SqlLogicalOperator.Not && this.Keyword == SqlKeywords.Exists)
             {
                 result += logicalOperator;
-                result = AddEmptySpaceAfter(result);
+                result = this.AddEmptySpaceAfter(result);
                 result += keyword;
             }
 
-            result = AddEmptySpaceAfter(result);
-            if (this.Keyword == SqlKeywords.Exists || this.Keyword == SqlKeywords.Values)
+            result = this.AddEmptySpaceAfter(result);
+            if (this.Keyword == SqlKeywords.Exists 
+                || this.Keyword == SqlKeywords.Fields 
+                || this.Keyword == SqlKeywords.Values)
             {
-                result += AddEmptySpaceAfter("(" + expression + AddEmptySpaceBefore(childItems) + ")");
+                result += this.AddEmptySpaceAfter("(" + expression + this.AddEmptySpaceBefore(childItems) + ")");
             }
             else if (childHasLogicalOperator)
             {
-                result += AddEmptySpaceAfter(expression + "(" + AddEmptySpaceBefore(childItems) + ")");
+                result += this.AddEmptySpaceAfter(expression + "(" + this.AddEmptySpaceBefore(childItems) + ")");
             }
             else
             {
-                result += AddEmptySpaceAfter(expression + AddEmptySpaceBefore(childItems));
+                result += this.AddEmptySpaceAfter(expression + AddEmptySpaceBefore(childItems));
             }
 
             return result;
@@ -141,6 +147,15 @@ namespace Franksoft.SqlManager.Definition
                     break;
                 case SqlKeywords.Set:
                     result = SQLKEYWORDS_SET;
+                    break;
+                case SqlKeywords.Begin:
+                    result = SQLKEYWORDS_BEGIN;
+                    break;
+                case SqlKeywords.End:
+                    result = SQLKEYWORDS_END;
+                    break;
+                case SqlKeywords.Fields:
+                default:
                     break;
             }
 

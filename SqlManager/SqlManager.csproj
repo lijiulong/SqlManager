@@ -45,9 +45,9 @@
     <Compile Include="DbProviders\IDbProvider.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Definition\Model.cs" />
-    <Compile Include="ModelFilePathCollectionSection.cs" />
-    <Compile Include="ModelFilePathElement.cs" />
-    <Compile Include="ModelFileSection.cs" />
+    <Compile Include="ModelRegistrationCollectionSection.cs" />
+    <Compile Include="ModelRegistrationElement.cs" />
+    <Compile Include="ModelRegistrationSection.cs" />
     <Compile Include="Definition\Models.cs" />
     <Compile Include="Definition\PredefinedSqls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
