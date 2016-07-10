@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Franksoft.SqlManager
 {
-    internal class Initializer
+    internal sealed class Initializer
     {
         static Initializer()
         {

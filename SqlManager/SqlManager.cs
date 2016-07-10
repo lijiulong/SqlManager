@@ -5,12 +5,12 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Franksoft.SqlManager.Definition;
 using Franksoft.SqlManager.DbProviders;
+using Franksoft.SqlManager.Definition;
 
 namespace Franksoft.SqlManager
 {
-    public class SqlManager
+    public sealed class SqlManager
     {
         static SqlManager()
         {
