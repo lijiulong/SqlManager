@@ -15,7 +15,13 @@ namespace Franksoft.SqlManager.Tester
             OleDbProvider provider = new OleDbProvider(connectionString);
 
             SqlManager.Instance.DbProvider = provider;
-            var result = SqlManager.Instance.GetStandaloneQueryResult("a");
+            using (var reader = SqlManager.Instance.GetStandaloneQueryReader("a"))
+            {
+                while(reader.Read())
+                {
+                    
+                }
+            }
         }
     }
 }

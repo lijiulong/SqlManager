@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbProviders\Mock\MockProvider.cs" />
     <Compile Include="DbProviders\OleDbProvider.cs" />
     <Compile Include="Definition\Field.cs" />
     <Compile Include="Definition\Fields.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="Definition\SqlLogicalOperator.cs" />
     <Compile Include="SqlManager.cs" />
     <Compile Include="Definition\StandaloneQueries.cs" />
-    <Compile Include="SqlResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config.sample">

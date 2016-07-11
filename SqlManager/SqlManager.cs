@@ -63,25 +63,7 @@ namespace Franksoft.SqlManager
         public Dictionary<string, Sql> StandaloneQueries { get; private set; }
 
         public IDbProvider DbProvider { get; set; }
-
-        public SqlResult GetStandaloneQueryResult(string key)
-        {
-            return GetStandaloneQueryResult(key, null);
-        }
-
-        public SqlResult GetStandaloneQueryResult(string key, Array parameters)
-        {
-            SqlResult result = null;
-
-            if (this.StandaloneQueries.ContainsKey(key))
-            {
-                Sql sql = this.StandaloneQueries[key];
-                result = sql.GetResult(this.DbProvider, parameters);
-            }
-
-            return result;
-        }
-
+        
         public DbDataReader GetStandaloneQueryReader(string key)
         {
             return GetStandaloneQueryReader(key, null);

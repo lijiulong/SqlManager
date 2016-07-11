@@ -19,49 +19,70 @@ namespace Franksoft.SqlManager.Definition
         [XmlAttribute]
         public CommandType CommandType { get; set; }
 
-        public SqlResult GetResult(IDbProvider dbProvider)
+        public int ExecuteNonQuery(IDbProvider dbProvider)
         {
-            return GetResult(dbProvider, null);
+            return ExecuteNonQuery(dbProvider, null);
         }
 
-        public SqlResult GetResult(IDbProvider dbProvider, Array parameters)
+        public int ExecuteNonQuery(IDbProvider dbProvider, Array parameters)
         {
-            SqlResult result = new SqlResult();
+            int result = -1;
+            
+            dbProvider.CommandText = this.ToString();
+            dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
+            result = dbProvider.ExecuteNonQuery();
 
-            string firstCommandKeyword = this.GetFirstCommandKeyword();
-            SqlClause firstChildClause = null;
-            if (this.ChildItems != null && this.ChildItems.Count > 0)
-            {
-                firstChildClause = this.ChildItems[0];
-            }
+            return result;
+        }
 
-            if (firstChildClause != null)
-            {
-                firstCommandKeyword = firstChildClause.Keyword.ToString();
-            }
+        public object ExecuteScalar(IDbProvider dbProvider)
+        {
+            return ExecuteScalar(dbProvider, null);
+        }
+
+        public object ExecuteScalar(IDbProvider dbProvider, Array parameters)
+        {
+            object result = null;
 
             dbProvider.CommandText = this.ToString();
             dbProvider.Parameters = parameters;
             dbProvider.CommandType = this.CommandType;
+            result = dbProvider.ExecuteScalar();
 
-            switch (firstCommandKeyword)
-            {
-                case "SELECT":
-                    result.DataTableResult = new DataTable();
-                    dbProvider.Fill(result.DataTableResult);
-                    break;
-                case "INSERT":
-                case "INSERTINTO":
-                    result.SingleResult = dbProvider.ExecuteScalar();
-                    break;
-                case "DELETE":
-                case "DELETEFROM":
-                case "UPDATE":
-                case "BEGIN":
-                default:
-                    result.ReturnResult = dbProvider.ExecuteNonQuery();
-                    break;
-            }
+            return result;
+        }
+
+        public DataTable Fill(IDbProvider dbProvider)
+        {
+            return Fill(dbProvider, null);
+        }
+
+        public DataTable Fill(IDbProvider dbProvider, Array parameters)
+        {
+            DataTable result = new DataTable();
+            
+            dbProvider.CommandText = this.ToString();
+            dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
+            dbProvider.Fill(result);
+
+            return result;
+        }
+
+        public int Update(IDbProvider dbProvider, DataTable dataTable)
+        {
+            return Update(dbProvider, null);
+        }
+
+        public int Update(IDbProvider dbProvider, DataTable dataTable, Array parameters)
+        {
+            int result = -1;
+
+            dbProvider.CommandText = this.ToString();
+            dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
+            result = dbProvider.Update(dataTable);
 
             return result;
         }

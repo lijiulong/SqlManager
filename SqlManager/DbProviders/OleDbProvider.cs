@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
@@ -18,19 +19,28 @@ namespace Franksoft.SqlManager.DbProviders
             this.Connection.Open();
         }
 
+        public OleDbProvider(OleDbConnection connection)
+        {
+            this.ConnectionString = connection.ConnectionString;
+            this.Connection = connection;
+            this.Command = new OleDbCommand();
+            this.Command.Connection = this.Connection;
+            this.Adapter = new OleDbDataAdapter();
+        }
+
         private OleDbConnection Connection { get; set; }
 
         private OleDbCommand Command { get; set; }
 
         private OleDbDataAdapter Adapter { get; set; }
 
-        public string ConnectionString { get; }
-
         public string CommandText { get; set; }
 
-        public Array Parameters { get; set; }
-
         public CommandType CommandType { get; set; }
+
+        public string ConnectionString { get; set; }
+
+        public Array Parameters { get; set; }
 
         public DbTransaction BeginTransaction()
         {
@@ -46,7 +56,7 @@ namespace Franksoft.SqlManager.DbProviders
         {
             this.Command.CommandText = this.CommandText;
             this.Command.Parameters.Clear();
-            if(this.Parameters!=null)
+            if (this.Parameters != null)
             {
                 this.Command.Parameters.AddRange(this.Parameters);
             }
@@ -102,6 +112,47 @@ namespace Franksoft.SqlManager.DbProviders
             return this.Adapter.Fill(dataTable);
         }
 
+        public DbParameter GetParameter(string parameterName, object value)
+        {
+            var parameter = this.Command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.Value = value;
+
+            return parameter;
+        }
+
+        public DbParameter[] GetParameterArray(params KeyValuePair<string, object>[] nameValuePairs)
+        {
+            List<DbParameter> parameters = new List<DbParameter>();
+
+            if (nameValuePairs != null)
+            {
+                foreach (KeyValuePair<string, object> nameValuePair in nameValuePairs)
+                {
+                    var parameter = this.GetParameter(nameValuePair.Key, nameValuePair.Value);
+                    parameters.Add(parameter);
+                }
+            }
+
+            return parameters.ToArray();
+        }
+
+        public DbParameter[] GetParameterArray(params object[] values)
+        {
+            List<DbParameter> parameters = new List<DbParameter>();
+
+            if (values != null)
+            {
+                foreach (object value in values)
+                {
+                    var parameter = this.GetParameter(null, value);
+                    parameters.Add(parameter);
+                }
+            }
+
+            return parameters.ToArray();
+        }
+
         public int Update(DataTable dataTable)
         {
             this.Command.CommandText = this.CommandText;
@@ -114,18 +165,9 @@ namespace Franksoft.SqlManager.DbProviders
             return this.Adapter.Update(dataTable);
         }
 
-        public DbParameter GetParameter(string parameterName, object value)
-        {
-            var parameter = this.Command.CreateParameter();
-            parameter.ParameterName = parameterName;
-            parameter.Value = value;
-
-            return parameter;
-        }
-
         public void Dispose()
         {
-            if( this.Command!=null)
+            if (this.Command != null)
             {
                 this.Command.Cancel();
             }

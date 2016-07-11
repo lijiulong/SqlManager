@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
@@ -31,5 +32,9 @@ namespace Franksoft.SqlManager.DbProviders
         DbTransaction BeginTransaction(IsolationLevel il);
 
         DbParameter GetParameter(string parameterName, object value);
+
+        DbParameter[] GetParameterArray(params object[] values);
+
+        DbParameter[] GetParameterArray(params KeyValuePair<string,object>[] nameValuePairs);
     }
 }
