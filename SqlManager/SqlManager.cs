@@ -63,10 +63,10 @@ namespace Franksoft.SqlManager
         public Dictionary<string, Sql> StandaloneQueries { get; private set; }
 
         public IDbProvider DbProvider { get; set; }
-        
+
         public DbDataReader GetStandaloneQueryReader(string key)
         {
-            return GetStandaloneQueryReader(key, null);
+            return this.GetStandaloneQueryReader(key, null);
         }
 
         public DbDataReader GetStandaloneQueryReader(string key, Array parameters)
@@ -80,6 +80,42 @@ namespace Franksoft.SqlManager
             }
 
             return reader;
+        }
+
+        public int ExecuteStandaloneNonQuery(string key)
+        {
+            return this.ExecuteStandaloneNonQuery(key, null);
+        }
+
+        public int ExecuteStandaloneNonQuery(string key, Array parameters)
+        {
+            int result = -1;
+
+            if (this.StandaloneQueries.ContainsKey(key))
+            {
+                Sql sql = this.StandaloneQueries[key];
+                result = sql.ExecuteNonQuery(this.DbProvider, parameters);
+            }
+
+            return result;
+        }
+
+        public object ExecuteStandaloneScalar(string key)
+        {
+            return this.ExecuteStandaloneScalar(key, null);
+        }
+
+        public object ExecuteStandaloneScalar(string key, Array parameters)
+        {
+            object result = null;
+
+            if (this.StandaloneQueries.ContainsKey(key))
+            {
+                Sql sql = this.StandaloneQueries[key];
+                result = sql.ExecuteScalar(this.DbProvider, parameters);
+            }
+
+            return result;
         }
     }
 }
