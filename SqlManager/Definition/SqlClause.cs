@@ -29,6 +29,8 @@ namespace Franksoft.SqlManager.Definition
 
         private const string SQLKEYWORDS_SET = "SET";
 
+        private const string SQLKEYWORDS_EQUALVALUES = "=";
+
         private const string SQLKEYWORDS_BEGIN = "BEGIN";
 
         private const string SQLKEYWORDS_END = "END";
@@ -95,8 +97,10 @@ namespace Franksoft.SqlManager.Definition
 
             result = this.AddEmptySpaceAfter(result);
             if (this.Keyword == SqlKeywords.Exists 
-                || this.Keyword == SqlKeywords.Fields 
-                || this.Keyword == SqlKeywords.Values)
+                || this.Keyword == SqlKeywords.Fields
+                || this.Keyword == SqlKeywords.SetFields
+                || this.Keyword == SqlKeywords.Values
+                || this.Keyword == SqlKeywords.EqualValues)
             {
                 result += this.AddEmptySpaceAfter("(" + expression + this.AddEmptySpaceBefore(childItems) + ")");
             }
@@ -146,6 +150,7 @@ namespace Franksoft.SqlManager.Definition
                     result = SQLKEYWORDS_VALUES;
                     break;
                 case SqlKeywords.Set:
+                case SqlKeywords.SetFields:
                     result = SQLKEYWORDS_SET;
                     break;
                 case SqlKeywords.Begin:
@@ -153,6 +158,9 @@ namespace Franksoft.SqlManager.Definition
                     break;
                 case SqlKeywords.End:
                     result = SQLKEYWORDS_END;
+                    break;
+                case SqlKeywords.EqualValues:
+                    result = SQLKEYWORDS_EQUALVALUES;
                     break;
                 case SqlKeywords.Fields:
                 default:

@@ -29,6 +29,10 @@ namespace Franksoft.SqlManager.Definition
 
         Set = 41,
 
+        SetFields = 42,
+
+        EqualValues = 43,
+
         Exists = 51,
 
         Begin = 6,
