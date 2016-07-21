@@ -22,6 +22,9 @@ namespace Franksoft.SqlManager
 
         private SqlManager()
         {
+            Models models = new Models();
+            StandaloneQueries standaloneQueries = new StandaloneQueries();
+
             this.Models = new Dictionary<string, Model>();
             this.StandaloneQueries = new Dictionary<string, Sql>();
             this.ModelsXmlSerializer = new XmlSerializer(typeof(Models));
@@ -35,24 +38,27 @@ namespace Franksoft.SqlManager
                     {
                         if (this.ModelsXmlSerializer.CanDeserialize(reader))
                         {
-                            var models = this.ModelsXmlSerializer.Deserialize(reader) as Models;
-                            if (models != null)
+                            var model = this.ModelsXmlSerializer.Deserialize(reader) as Models;
+                            if (model != null)
                             {
-                                this.Models = models.ToDictionary();
+                                models.AddRange(model);
                             }
                         }
                         else if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
-                        {
-                            var standaloneQueries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
+                        {                            
+                            var queries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
 
-                            if (standaloneQueries != null)
+                            if (queries != null)
                             {
-                                this.StandaloneQueries = standaloneQueries.ToDictionary();
+                                standaloneQueries.AddRange(queries);
                             }
                         }
                     }
                 }
             }
+
+            this.Models = models.ToDictionary();
+            this.StandaloneQueries = standaloneQueries.ToDictionary();
         }
 
         private XmlSerializer ModelsXmlSerializer { get; set; }
