@@ -67,19 +67,22 @@ namespace Franksoft.SqlManager.Definition
             string childItems = string.Empty;
             bool childHasLogicalOperator = false;
 
-            foreach (SqlClause clause in this.ChildItems)
+            if (this.ChildItems != null)
             {
-                string childString = clause.ToString();
-                if (clause.Keyword == SqlKeywords.None && clause.LogicalOperator == SqlLogicalOperator.None)
+                foreach (SqlClause clause in this.ChildItems)
                 {
-                    childString = COMMA + AddEmptySpaceBefore(childString);
-                }
+                    string childString = clause.ToString();
+                    if (clause.Keyword == SqlKeywords.None && clause.LogicalOperator == SqlLogicalOperator.None)
+                    {
+                        childString = COMMA + AddEmptySpaceBefore(childString);
+                    }
 
-                if (clause.LogicalOperator != SqlLogicalOperator.None)
-                {
-                    childHasLogicalOperator = true;
+                    if (clause.LogicalOperator != SqlLogicalOperator.None)
+                    {
+                        childHasLogicalOperator = true;
+                    }
+                    childItems += childString + EMPTY_SPACE;
                 }
-                childItems += childString + EMPTY_SPACE;
             }
 
             childItems = childItems.Trim(COMMA);
