@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 
@@ -40,6 +41,12 @@ namespace Franksoft.SqlManager
             }
         }
 
+        private void InitializeMembers()
+        {
+            this.Models = new List<string>();
+            this.ModelDirectory = MODEL_DIRECTORY_DEFAULT_VALUE;
+        }
+
         private void InitializeConfiguration()
         {
             string modelDirectory = ConfigurationManager.AppSettings[MODEL_DIRECTORY_KEY];
@@ -47,13 +54,14 @@ namespace Franksoft.SqlManager
             {
                 this.ModelDirectory = modelDirectory;
             }
+            this.ModelDirectory = this.ProcessRelativePath(this.ModelDirectory);
 
             var models = ConfigurationManager.GetSection(MODEL_REGISTRATION_SECTION_NAME) as ModelRegistrationSection;
             if (models != null)
             {
                 foreach (ModelRegistrationElement path in models.Pathes)
                 {
-                    this.Models.Add(path.Path);
+                    this.Models.Add(this.ProcessRelativePath(path.Path));
                 }
             }
 
@@ -68,10 +76,9 @@ namespace Franksoft.SqlManager
             }
         }
 
-        private void InitializeMembers()
+        private string ProcessRelativePath(string relativePath)
         {
-            this.Models = new List<string>();
-            this.ModelDirectory = MODEL_DIRECTORY_DEFAULT_VALUE;
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
         }
     }
 }

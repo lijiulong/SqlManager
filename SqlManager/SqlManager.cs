@@ -22,8 +22,11 @@ namespace Franksoft.SqlManager
 
         private SqlManager()
         {
+            this.Models = new Dictionary<string, Model>();
+            this.StandaloneQueries = new Dictionary<string, Sql>();
             this.ModelsXmlSerializer = new XmlSerializer(typeof(Models));
             this.StandaloneQueriesXmlSerializer = new XmlSerializer(typeof(StandaloneQueries));
+
             foreach (string path in Initializer.Instance.ModelRegistration)
             {
                 using (Stream stream = new FileStream(path, FileMode.Open))
