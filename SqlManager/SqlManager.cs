@@ -32,7 +32,7 @@ namespace Franksoft.SqlManager
 
             foreach (string path in Initializer.Instance.ModelRegistration)
             {
-                using (Stream stream = new FileStream(path, FileMode.Open))
+                using (Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (XmlReader reader = new XmlTextReader(stream))
                     {
