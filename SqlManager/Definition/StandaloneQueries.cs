@@ -8,11 +8,16 @@ namespace Franksoft.SqlManager.Definition
     [XmlRoot("StandaloneQueries")]
     public class StandaloneQueries : List<Sql>
     {
-        public Dictionary<string, Sql> ToDictionary()
+        public Dictionary<string, Sql> ToDictionary(bool ignoreDuplicateKeys)
         {
             var dictionary = new Dictionary<string, Sql>();
             foreach (Sql sql in this)
             {
+                if (!ignoreDuplicateKeys && dictionary.ContainsKey(sql.Key))
+                {
+                    throw new KeyDuplicateException(sql.Key);
+                }
+
                 dictionary[sql.Key] = sql;
             }
 

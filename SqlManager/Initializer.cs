@@ -23,13 +23,19 @@ namespace Franksoft.SqlManager
 
         private const string MODEL_DIRECTORY_DEFAULT_VALUE = @".\";
 
-        private const string MODEL_DIRECTORY_KEY = "SqlManager.ModelDirectory";
+        private const string MODEL_DIRECTORY_CONFIG_KEY = "SqlManager.ModelDirectory";
 
         private const string MODEL_REGISTRATION_SECTION_NAME = "ModelRegistrations";
+
+        private const bool IGNORE_DUPLICATE_KEYS_DEFAULT_VALUE = false;
+
+        private const string IGNORE_DUPLICATE_KEYS_CONFIG_KEY = "SqlManager.IgnoreDuplicateKeys";
 
         private List<string> Models { get; set; }
 
         public static Initializer Instance { get; private set; }
+
+        public bool IgnoreDuplicateKeys { get; private set; }
 
         public string ModelDirectory { get; private set; }
 
@@ -45,11 +51,12 @@ namespace Franksoft.SqlManager
         {
             this.Models = new List<string>();
             this.ModelDirectory = MODEL_DIRECTORY_DEFAULT_VALUE;
+            this.IgnoreDuplicateKeys = IGNORE_DUPLICATE_KEYS_DEFAULT_VALUE;
         }
 
         private void InitializeConfiguration()
         {
-            string modelDirectory = ConfigurationManager.AppSettings[MODEL_DIRECTORY_KEY];
+            string modelDirectory = ConfigurationManager.AppSettings[MODEL_DIRECTORY_CONFIG_KEY];
             if (!string.IsNullOrEmpty(modelDirectory))
             {
                 this.ModelDirectory = modelDirectory;
@@ -73,6 +80,13 @@ namespace Franksoft.SqlManager
                     this.Models.RemoveAll(s => s == path);
                     this.Models.Add(path);
                 }
+            }
+
+            string ignoreDuplicateKeys= ConfigurationManager.AppSettings[IGNORE_DUPLICATE_KEYS_CONFIG_KEY];
+            bool isIgnoreDuplicateKeys = IGNORE_DUPLICATE_KEYS_DEFAULT_VALUE;
+            if(bool.TryParse(ignoreDuplicateKeys, out isIgnoreDuplicateKeys))
+            {
+                this.IgnoreDuplicateKeys = isIgnoreDuplicateKeys;
             }
         }
 

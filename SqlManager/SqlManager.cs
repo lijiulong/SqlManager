@@ -57,8 +57,8 @@ namespace Franksoft.SqlManager
                 }
             }
 
-            this.Models = models.ToDictionary();
-            this.StandaloneQueries = standaloneQueries.ToDictionary();
+            this.Models = models.ToDictionary(Initializer.Instance.IgnoreDuplicateKeys);
+            this.StandaloneQueries = standaloneQueries.ToDictionary(Initializer.Instance.IgnoreDuplicateKeys);
         }
 
         private XmlSerializer ModelsXmlSerializer { get; set; }

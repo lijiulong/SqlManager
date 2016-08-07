@@ -46,6 +46,7 @@
     <Compile Include="DbProviders\IDbProvider.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Definition\Model.cs" />
+    <Compile Include="KeyDuplicateException.cs" />
     <Compile Include="ModelRegistrationCollectionSection.cs" />
     <Compile Include="ModelRegistrationElement.cs" />
     <Compile Include="ModelRegistrationSection.cs" />

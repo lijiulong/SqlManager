@@ -5,6 +5,7 @@
   </configSections>
   <appSettings>
     <add key="SqlManager.ModelDirectory" value="models"/>
+    <add key="SqlManager.IgnoreDuplicateKeys" value="false"/>
   </appSettings>
   <ModelRegistrations>
     <pathes>
