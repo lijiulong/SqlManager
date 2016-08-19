@@ -44,12 +44,18 @@ namespace Franksoft.SqlManager.DbProviders
 
         public DbTransaction BeginTransaction()
         {
-            return this.Connection.BeginTransaction();
+            OleDbTransaction transaction = this.Connection.BeginTransaction();
+            this.Command.Transaction = transaction;
+
+            return transaction;
         }
 
         public DbTransaction BeginTransaction(IsolationLevel il)
         {
-            return this.Connection.BeginTransaction(il);
+            OleDbTransaction transaction = this.Connection.BeginTransaction(il);
+            this.Command.Transaction = transaction;
+
+            return transaction;
         }
 
         public int ExecuteNonQuery()
