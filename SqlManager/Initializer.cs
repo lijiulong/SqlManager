@@ -61,14 +61,14 @@ namespace Franksoft.SqlManager
             {
                 this.ModelDirectory = modelDirectory;
             }
-            this.ModelDirectory = this.ProcessRelativePath(this.ModelDirectory);
+            this.ModelDirectory = SqlManager.ProcessRelativePath(this.ModelDirectory);
 
             var models = ConfigurationManager.GetSection(MODEL_REGISTRATION_SECTION_NAME) as ModelRegistrationSection;
             if (models != null)
             {
                 foreach (ModelRegistrationElement path in models.Pathes)
                 {
-                    this.Models.Add(this.ProcessRelativePath(path.Path));
+                    this.Models.Add(SqlManager.ProcessRelativePath(path.Path));
                 }
             }
 
@@ -88,11 +88,6 @@ namespace Franksoft.SqlManager
             {
                 this.IgnoreDuplicateKeys = isIgnoreDuplicateKeys;
             }
-        }
-
-        private string ProcessRelativePath(string relativePath)
-        {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
         }
     }
 }

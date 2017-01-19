@@ -22,12 +22,8 @@ namespace Franksoft.SqlManager
 
         private SqlManager()
         {
-            Models models = new Models();
             StandaloneQueries standaloneQueries = new StandaloneQueries();
-
-            this.Models = new Dictionary<string, Model>();
             this.StandaloneQueries = new Dictionary<string, Sql>();
-            this.ModelsXmlSerializer = new XmlSerializer(typeof(Models));
             this.StandaloneQueriesXmlSerializer = new XmlSerializer(typeof(StandaloneQueries));
 
             foreach (string path in Initializer.Instance.ModelRegistration)
@@ -36,16 +32,8 @@ namespace Franksoft.SqlManager
                 {
                     using (XmlReader reader = new XmlTextReader(stream))
                     {
-                        if (this.ModelsXmlSerializer.CanDeserialize(reader))
+                        if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
                         {
-                            var model = this.ModelsXmlSerializer.Deserialize(reader) as Models;
-                            if (model != null)
-                            {
-                                models.AddRange(model);
-                            }
-                        }
-                        else if (this.StandaloneQueriesXmlSerializer.CanDeserialize(reader))
-                        {                            
                             var queries = this.StandaloneQueriesXmlSerializer.Deserialize(reader) as StandaloneQueries;
 
                             if (queries != null)
@@ -57,21 +45,37 @@ namespace Franksoft.SqlManager
                 }
             }
 
-            this.Models = models.ToDictionary(Initializer.Instance.IgnoreDuplicateKeys);
             this.StandaloneQueries = standaloneQueries.ToDictionary(Initializer.Instance.IgnoreDuplicateKeys);
         }
-
-        private XmlSerializer ModelsXmlSerializer { get; set; }
 
         private XmlSerializer StandaloneQueriesXmlSerializer { get; set; }
 
         public static SqlManager Instance { get; private set; }
 
-        public Dictionary<string, Model> Models { get; private set; }
-
         public Dictionary<string, Sql> StandaloneQueries { get; private set; }
 
         public IDbProvider DbProvider { get; set; }
+
+        public bool IgnoreDuplicateKeys
+        {
+            get
+            {
+                return Initializer.Instance.IgnoreDuplicateKeys;
+            }
+        }
+
+        public string ModelDirectory
+        {
+            get
+            {
+                return Initializer.Instance.ModelDirectory;
+            }
+        }
+
+        public static string ProcessRelativePath(string relativePath)
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+        }
 
         public DbDataReader GetStandaloneQueryReader(string key)
         {

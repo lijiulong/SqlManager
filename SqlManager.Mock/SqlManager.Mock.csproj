@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2105E0C-F81A-4A59-A215-DFF23BBD3096}</ProjectGuid>
+    <ProjectGuid>{F53797FD-92AC-4CCB-A0F2-A539D06A616D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Franksoft.SqlManager</RootNamespace>
-    <AssemblyName>SqlManager</AssemblyName>
+    <RootNamespace>SqlManager.Mock</RootNamespace>
+    <AssemblyName>SqlManager.Mock</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,44 +22,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SqlManager.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbProviders\OleDbProvider.cs" />
-    <Compile Include="DbProviders\IDbProvider.cs" />
-    <Compile Include="Initializer.cs" />
-    <Compile Include="KeyDuplicateException.cs" />
-    <Compile Include="ModelRegistrationCollectionSection.cs" />
-    <Compile Include="ModelRegistrationElement.cs" />
-    <Compile Include="ModelRegistrationSection.cs" />
+    <Compile Include="Definition\MockConfig.cs" />
+    <Compile Include="Definition\MockType.cs" />
+    <Compile Include="Definition\SqlMock.cs" />
+    <Compile Include="Definition\StandaloneQueriesMock.cs" />
+    <Compile Include="MockProvider.cs" />
+    <Compile Include="MockRegistrationCollectionSection.cs" />
+    <Compile Include="MockRegistrationElement.cs" />
+    <Compile Include="MockRegistrationSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Definition\Sql.cs" />
-    <Compile Include="Definition\SqlClause.cs" />
-    <Compile Include="Definition\SqlKeywords.cs" />
-    <Compile Include="Definition\SqlLogicalOperator.cs" />
-    <Compile Include="SqlManager.cs" />
-    <Compile Include="Definition\StandaloneQueries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config.sample">
       <SubType>Designer</SubType>
     </None>
+    <None Include="StandaloneQueriesMock_Sample.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StandaloneQueries_Sample.xml" />
+    <ProjectReference Include="..\SqlManager\SqlManager.csproj">
+      <Project>{d2105e0c-f81a-4a59-a215-dff23bbd3096}</Project>
+      <Name>SqlManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

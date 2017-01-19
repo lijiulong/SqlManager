@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlManager", "SqlManager\Sq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlManager.Tester", "SqlManager.Tester\SqlManager.Tester.csproj", "{E9DCD671-F315-48F1-9EC8-47C978FD24F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlManager.Mock", "SqlManager.Mock\SqlManager.Mock.csproj", "{F53797FD-92AC-4CCB-A0F2-A539D06A616D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlManager.SQLiteProvider", "SqlManager.SQLiteProvider\SqlManager.SQLiteProvider.csproj", "{FC4DD7C1-8E5C-44DE-9353-25BCBCF608ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{E9DCD671-F315-48F1-9EC8-47C978FD24F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9DCD671-F315-48F1-9EC8-47C978FD24F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9DCD671-F315-48F1-9EC8-47C978FD24F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53797FD-92AC-4CCB-A0F2-A539D06A616D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53797FD-92AC-4CCB-A0F2-A539D06A616D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53797FD-92AC-4CCB-A0F2-A539D06A616D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53797FD-92AC-4CCB-A0F2-A539D06A616D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC4DD7C1-8E5C-44DE-9353-25BCBCF608ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC4DD7C1-8E5C-44DE-9353-25BCBCF608ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC4DD7C1-8E5C-44DE-9353-25BCBCF608ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC4DD7C1-8E5C-44DE-9353-25BCBCF608ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
