@@ -21,7 +21,7 @@ namespace Franksoft.SqlManager.Definition
 
         public int ExecuteNonQuery(IDbProvider dbProvider)
         {
-            return ExecuteNonQuery(dbProvider, null);
+            return this.ExecuteNonQuery(dbProvider, null);
         }
 
         public int ExecuteNonQuery(IDbProvider dbProvider, Array parameters)
@@ -38,7 +38,7 @@ namespace Franksoft.SqlManager.Definition
 
         public object ExecuteScalar(IDbProvider dbProvider)
         {
-            return ExecuteScalar(dbProvider, null);
+            return this.ExecuteScalar(dbProvider, null);
         }
 
         public object ExecuteScalar(IDbProvider dbProvider, Array parameters)
@@ -55,7 +55,7 @@ namespace Franksoft.SqlManager.Definition
 
         public DataTable Fill(IDbProvider dbProvider)
         {
-            return Fill(dbProvider, null);
+            return this.Fill(dbProvider, null);
         }
 
         public DataTable Fill(IDbProvider dbProvider, Array parameters)
@@ -72,7 +72,7 @@ namespace Franksoft.SqlManager.Definition
 
         public int Update(IDbProvider dbProvider, DataTable dataTable)
         {
-            return Update(dbProvider, null);
+            return this.Update(dbProvider, null);
         }
 
         public int Update(IDbProvider dbProvider, DataTable dataTable, Array parameters)
@@ -89,7 +89,7 @@ namespace Franksoft.SqlManager.Definition
 
         public DbDataReader GetReader(IDbProvider dbProvider)
         {
-            return GetReader(dbProvider, null);
+            return this.GetReader(dbProvider, null);
         }
 
         public DbDataReader GetReader(IDbProvider dbProvider, Array parameters)
@@ -111,20 +111,6 @@ namespace Franksoft.SqlManager.Definition
             if (string.IsNullOrEmpty(result))
             {
                 result = this.Command;
-            }
-
-            return result;
-        }
-
-        private string GetFirstCommandKeyword()
-        {
-            string result = string.Empty;
-
-            string command = this.Command.Trim();
-            string[] commandWords = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (commandWords.Length > 0)
-            {
-                result = commandWords[0].ToUpper();
             }
 
             return result;

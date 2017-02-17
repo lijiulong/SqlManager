@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
 using Franksoft.SqlManager.DbProviders;
+using Franksoft.SqlManager.Definition;
 using Franksoft.SqlManager.Mock.Definition;
 
 namespace Franksoft.SqlManager.Mock
 {
-    public class MockProvider : IDbProvider
+    public class MockProvider : BaseDbProvider
     {
         public MockProvider()
         {
@@ -32,15 +34,7 @@ namespace Franksoft.SqlManager.Mock
 
         private List<string> Mocks { get; set; }
 
-        private XmlSerializer StandaloneQueriesMockXmlSerializer { get; set; }
-
-        public string CommandText { get; set; }
-
-        public CommandType CommandType { get; set; }
-
-        public string ConnectionString { get; set; }
-
-        public Array Parameters { get; set; }
+        private XmlSerializer StandaloneQueriesMockXmlSerializer { get; set; }        
 
         public Dictionary<string, SqlMock> StandaloneQueriesMock { get; private set; }
 
@@ -54,79 +48,134 @@ namespace Franksoft.SqlManager.Mock
             }
         }
 
-        public DbTransaction BeginTransaction()
+        public IDbProvider DbMockProvider { get; private set; }
+
+        public override DbTransaction BeginTransaction()
         {
             return null;
         }
 
-        public DbTransaction BeginTransaction(IsolationLevel il)
+        public override DbTransaction BeginTransaction(IsolationLevel il)
         {
             return null;
         }
 
-        public int ExecuteNonQuery()
+        public override void Dispose()
         {
             throw new NotImplementedException();
         }
 
-        public DbDataReader ExecuteReader()
+        public override int ExecuteNonQuery()
         {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                return sqlMock.ExecuteNonQuery(this.DbMockProvider,this.Parameters);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public DbDataReader ExecuteReader(CommandBehavior behavior)
+        public override DbDataReader ExecuteReader()
         {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                return sqlMock.GetReader(this.DbMockProvider, this.Parameters);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public object ExecuteScalar()
+        public override DbDataReader ExecuteReader(CommandBehavior behavior)
         {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                return sqlMock.GetReader(this.DbMockProvider, this.Parameters, behavior);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public int Fill(DataTable dataTable)
+        public override object ExecuteScalar()
         {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                return sqlMock.ExecuteScalar(this.DbMockProvider, this.Parameters);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public DbParameter GetParameter(string parameterName, object value)
+        public override int Fill(DataTable dataTable)
         {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                int result = -1;
+                dataTable = sqlMock.Fill(this.DbMockProvider, this.Parameters);
+                if (dataTable != null)
+                {
+                    result = dataTable.Rows.Count;
+                }
+
+                return result;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public DbParameter[] GetParameterArray(params KeyValuePair<string, object>[] nameValuePairs)
+        public override DbParameter GetParameter(string parameterName, object value)
         {
-            throw new NotImplementedException();
+            SQLiteParameter parameter = new SQLiteParameter(parameterName, value);
+
+            return parameter;
         }
 
-        public DbParameter[] GetParameterArray(params object[] values)
+        public override void Initialize(string connectionString)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public int Update(DataTable dataTable)
+        public override int Update(DataTable dataTable)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
+            SqlMock sqlMock = this.MapToMock(this.CommandText);
+            if (sqlMock != null)
+            {
+                return sqlMock.Update(this.DbMockProvider, dataTable, this.Parameters);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void Initialize(IDbProvider dbProvider)
         {
-            InitializeMembers();
+            InitializeMembers(dbProvider);
             InitializeConfiguration();
             InitializeMocks();
         }
 
-        private void InitializeMembers()
+        private void InitializeMembers(IDbProvider dbProvider)
         {
             this.Mocks = new List<string>();
             this.MockDirectory = MOCK_DIRECTORY_DEFAULT_VALUE;
             this.StandaloneQueriesMock = new Dictionary<string, SqlMock>();
             this.StandaloneQueriesMockXmlSerializer = new XmlSerializer(typeof(StandaloneQueriesMock));
+            this.DbMockProvider = dbProvider;
         }
 
         private void InitializeConfiguration()
@@ -182,6 +231,29 @@ namespace Franksoft.SqlManager.Mock
             }
 
             this.StandaloneQueriesMock = standaloneQueriesMock.ToDictionary(SqlManager.Instance.IgnoreDuplicateKeys);
+        }
+
+        private SqlMock MapToMock(string commandText)
+        {
+            SqlMock result = null;
+            string key = string.Empty;
+
+            foreach (KeyValuePair<string, Sql> keyValuePair in SqlManager.Instance.StandaloneQueries)
+            {
+                string sqlText = keyValuePair.Value.ToString();
+                if (string.Equals(commandText, sqlText, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    key = keyValuePair.Key;
+                    break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(key) && this.StandaloneQueriesMock.ContainsKey(key))
+            {
+                result = this.StandaloneQueriesMock[key];
+            }
+
+            return result;
         }
     }
 }

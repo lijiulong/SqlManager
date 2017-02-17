@@ -7,34 +7,36 @@ namespace Franksoft.SqlManager.DbProviders
 {
     public interface IDbProvider : IDisposable
     {
-        string ConnectionString { get; }
-
         string CommandText { get; set; }
 
         CommandType CommandType { get; set; }
 
+        string ConnectionString { get; }
+
         Array Parameters { get; set; }
-
-        DbDataReader ExecuteReader();
-
-        DbDataReader ExecuteReader(CommandBehavior behavior);
-
-        int ExecuteNonQuery();
-
-        object ExecuteScalar();
-
-        int Fill(DataTable dataTable);
-
-        int Update(DataTable dataTable);
 
         DbTransaction BeginTransaction();
 
         DbTransaction BeginTransaction(IsolationLevel il);
 
+        int ExecuteNonQuery();
+
+        DbDataReader ExecuteReader();
+
+        DbDataReader ExecuteReader(CommandBehavior behavior);
+
+        object ExecuteScalar();
+
+        int Fill(DataTable dataTable);
+
         DbParameter GetParameter(string parameterName, object value);
 
         DbParameter[] GetParameterArray(params object[] values);
 
-        DbParameter[] GetParameterArray(params KeyValuePair<string,object>[] nameValuePairs);
+        DbParameter[] GetParameterArray(params KeyValuePair<string, object>[] nameValuePairs);
+
+        void Initialize(string connectionString);
+
+        int Update(DataTable dataTable);
     }
 }

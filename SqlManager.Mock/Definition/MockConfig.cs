@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -22,10 +21,6 @@ namespace Franksoft.SqlManager.Mock.Definition
         private List<Type> TypeList { get; set; }
 
         private DataTable DataTableSource { get; set; }
-
-        private List<IList> DataList { get; set; }
-
-        private List<IDictionary<string, object>> DataDictionaryList { get; set; }
 
         [XmlAttribute]
         public int Sequence { get; set; }
@@ -74,32 +69,6 @@ namespace Franksoft.SqlManager.Mock.Definition
             get
             {
                 return this.DataTableSource;
-            }
-        }
-
-        public IList<IList> Data
-        {
-            get
-            {
-                if (this.DataList == null)
-                {
-                    this.DataList = this.GenerateDataCache();
-                }
-
-                return this.DataList.AsReadOnly();
-            }
-        }
-
-        public IList<IDictionary<string, object>> DataDictionary
-        {
-            get
-            {
-                if (this.DataDictionaryList == null)
-                {
-                    this.DataDictionaryList = this.GenerateDataDictionaryCache();
-                }
-
-                return this.DataDictionaryList.AsReadOnly();
             }
         }
 
@@ -210,22 +179,18 @@ namespace Franksoft.SqlManager.Mock.Definition
                         {
                             string dataString = streamReader.ReadLine();
                             string[] rawDataRow = dataString.Split(new[] { this.Delimiter }, StringSplitOptions.None);
-                            ArrayList dataRow = new ArrayList();
 
+                            DataRow row = this.DataTableSource.NewRow();
+                            for (int i = 0; i < rawDataRow.Length; i++)
+                            {
+                                Type dataType = this.DataTableSource.Columns[i].DataType;
+                                string rawData = rawDataRow[i];
+                                row[i] = MockHelper.ConvertToType(dataType, rawData);
+                            }
                         }
                     }
                 }
             }
-        }
-
-        private List<IList> GenerateDataCache()
-        {
-            throw new NotImplementedException();
-        }
-
-        private List<IDictionary<string, object>> GenerateDataDictionaryCache()
-        {
-            throw new NotImplementedException();
         }
     }
 }
