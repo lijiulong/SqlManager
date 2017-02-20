@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <configSections>
-    <section type="Franksoft.SqlManager.Mock.MockRegistrationSection,SqlManager" name="MockRegistrationSection"/>
+    <section type="Franksoft.SqlManager.Mock.MockRegistrationSection,SqlManager.Mock" name="MockRegistrationSection"/>
   </configSections>
   <appSettings>
     <add key="SqlManager.MockDirectory" value="mocks"/>

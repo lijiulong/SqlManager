@@ -61,10 +61,6 @@
     <None Include="StandaloneQueriesMock_Sample.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SqlManager.SQLiteProvider\SqlManager.SQLiteProvider.csproj">
-      <Project>{fc4dd7c1-8e5c-44de-9353-25bcbcf608ed}</Project>
-      <Name>SqlManager.SQLiteProvider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SqlManager\SqlManager.csproj">
       <Project>{d2105e0c-f81a-4a59-a215-dff23bbd3096}</Project>
       <Name>SqlManager</Name>

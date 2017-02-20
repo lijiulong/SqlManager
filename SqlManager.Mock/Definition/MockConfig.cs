@@ -46,8 +46,7 @@ namespace Franksoft.SqlManager.Mock.Definition
         [XmlAttribute]
         public bool IsIncludeType { get; set; }
 
-        public long ExecutedCounter { get; private set; }
-
+        [XmlIgnore]
         public IList<string> Headers
         {
             get
@@ -56,6 +55,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        [XmlIgnore]
         public IList<Type> Types
         {
             get
@@ -64,6 +64,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        [XmlIgnore]
         public DataTable DataTable
         {
             get
@@ -187,6 +188,7 @@ namespace Franksoft.SqlManager.Mock.Definition
                                 string rawData = rawDataRow[i];
                                 row[i] = MockHelper.ConvertToType(dataType, rawData);
                             }
+                            this.DataTableSource.Rows.Add(row);
                         }
                     }
                 }

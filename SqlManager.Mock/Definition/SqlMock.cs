@@ -10,7 +10,7 @@ using Franksoft.SqlManager.Definition;
 namespace Franksoft.SqlManager.Mock.Definition
 {
     [Serializable]
-    public class SqlMock : List<MockConfig>
+    public class SqlMock
     {
         [XmlAttribute]
         public string Key { get; set; }
@@ -18,7 +18,10 @@ namespace Franksoft.SqlManager.Mock.Definition
         [XmlAttribute]
         public MockType Type { get; set; }
 
+        [XmlIgnore]
         public long ExecutedCounter { get; set; }
+
+        public List<MockConfig> MockConfigs { get; set; }
 
         public void InitializeMock()
         {
@@ -179,8 +182,8 @@ namespace Franksoft.SqlManager.Mock.Definition
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null)
             {
-                this.ExecutedCounter++;                
-                if (string.IsNullOrEmpty(mockConfig.CsvFilePath))
+                this.ExecutedCounter++;
+                if (!string.IsNullOrEmpty(mockConfig.CsvFilePath))
                 {
                     mockConfig.Initialize();
 
@@ -256,7 +259,7 @@ namespace Franksoft.SqlManager.Mock.Definition
 
         private void SortMockConfigs()
         {
-            this.Sort((a, b) =>
+            this.MockConfigs.Sort((a, b) =>
             {
                 int result = 0;
 
@@ -285,7 +288,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             MockConfig result = null;
             long repeatCounter = 0;
 
-            foreach (MockConfig mockConfig in this)
+            foreach (MockConfig mockConfig in this.MockConfigs)
             {
                 if (mockConfig.Repeat == 0)
                 {

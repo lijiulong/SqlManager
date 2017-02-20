@@ -1,8 +1,13 @@
 <StandaloneQueriesMock>
   <SqlMock Key="a" Type="Select">
-    <MockConfig Sequence="0" Repeat="0" CsvFilePath="mocks\01.csv" Delimiter="," IncludeHeader="True" IncludeType="False"/>
+    <MockConfigs>
+      <MockConfig Sequence="0" Repeat="1" ConnectionString="Data Source=mocks\test.db" />
+      <MockConfig Sequence="1" Repeat="1" CsvFilePath="mocks\02.csv" Delimiter="," IsIncludeHeader="1" IsIncludeType="1"/>
+    </MockConfigs>
   </SqlMock>
-  <SqlMock Key="a" Type="Select">
-    <MockConfig Sequence="0" Repeat="3" ConnectionString="Data Source=D:\test.db"/>
+  <SqlMock Key="b" Type="Select">
+    <MockConfigs>
+      <MockConfig Sequence="0" Repeat="0" CsvFilePath="mocks\02.csv" Delimiter="," IsIncludeHeader="1" IsIncludeType="1"/>
+    </MockConfigs>
   </SqlMock>
 </StandaloneQueriesMock>
