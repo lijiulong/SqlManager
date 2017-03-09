@@ -24,7 +24,7 @@ namespace Franksoft.SqlManager.Definition
             return this.ExecuteNonQuery(dbProvider, null);
         }
 
-        public int ExecuteNonQuery(IDbProvider dbProvider, Array parameters)
+        public int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
             int result = -1;
             
@@ -41,7 +41,7 @@ namespace Franksoft.SqlManager.Definition
             return this.ExecuteScalar(dbProvider, null);
         }
 
-        public object ExecuteScalar(IDbProvider dbProvider, Array parameters)
+        public object ExecuteScalar(IDbProvider dbProvider, DbParameter[] parameters)
         {
             object result = null;
 
@@ -58,7 +58,7 @@ namespace Franksoft.SqlManager.Definition
             return this.Fill(dbProvider, null);
         }
 
-        public DataTable Fill(IDbProvider dbProvider, Array parameters)
+        public DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DataTable result = new DataTable();
             
@@ -75,7 +75,7 @@ namespace Franksoft.SqlManager.Definition
             return this.Update(dbProvider, null);
         }
 
-        public int Update(IDbProvider dbProvider, DataTable dataTable, Array parameters)
+        public int Update(IDbProvider dbProvider, DataTable dataTable, DbParameter[] parameters)
         {
             int result = -1;
 
@@ -92,7 +92,7 @@ namespace Franksoft.SqlManager.Definition
             return this.GetReader(dbProvider, null);
         }
 
-        public DbDataReader GetReader(IDbProvider dbProvider, Array parameters)
+        public DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DbDataReader reader = null;
 

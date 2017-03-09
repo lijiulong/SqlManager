@@ -13,7 +13,7 @@ namespace Franksoft.SqlManager.DbProviders
 
         string ConnectionString { get; }
 
-        Array Parameters { get; set; }
+        DbParameter[] Parameters { get; set; }
 
         DbTransaction BeginTransaction();
 

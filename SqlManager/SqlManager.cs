@@ -82,7 +82,7 @@ namespace Franksoft.SqlManager
             return this.GetStandaloneQueryReader(key, null);
         }
 
-        public DbDataReader GetStandaloneQueryReader(string key, Array parameters)
+        public DbDataReader GetStandaloneQueryReader(string key, DbParameter[] parameters)
         {
             DbDataReader reader = null;
 
@@ -100,7 +100,7 @@ namespace Franksoft.SqlManager
             return this.ExecuteStandaloneNonQuery(key, null);
         }
 
-        public int ExecuteStandaloneNonQuery(string key, Array parameters)
+        public int ExecuteStandaloneNonQuery(string key, DbParameter[] parameters)
         {
             int result = -1;
 
@@ -118,7 +118,7 @@ namespace Franksoft.SqlManager
             return this.ExecuteStandaloneScalar(key, null);
         }
 
-        public object ExecuteStandaloneScalar(string key, Array parameters)
+        public object ExecuteStandaloneScalar(string key, DbParameter[] parameters)
         {
             object result = null;
 

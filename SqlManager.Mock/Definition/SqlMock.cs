@@ -33,7 +33,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             return this.ExecuteNonQuery(dbProvider, null);
         }
 
-        public int ExecuteNonQuery(IDbProvider dbProvider, Array parameters)
+        public int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null
@@ -66,7 +66,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             return this.ExecuteNonQuery(dbProvider, null);
         }
 
-        public object ExecuteScalar(IDbProvider dbProvider, Array parameters)
+        public object ExecuteScalar(IDbProvider dbProvider, DbParameter[] parameters)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null
@@ -99,7 +99,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             return this.Fill(dbProvider, null);
         }
 
-        public DataTable Fill(IDbProvider dbProvider, Array parameters)
+        public DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null)
@@ -144,7 +144,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             return this.Update(dbProvider, dataTable, null);
         }
 
-        public int Update(IDbProvider dbProvider, DataTable dataTable, Array parameters)
+        public int Update(IDbProvider dbProvider, DataTable dataTable, DbParameter[] parameters)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null
@@ -177,7 +177,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             return this.GetReader(dbProvider, null);
         }
 
-        public DbDataReader GetReader(IDbProvider dbProvider, Array parameters)
+        public DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null)
@@ -217,7 +217,7 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
-        public DbDataReader GetReader(IDbProvider dbProvider, Array parameters, CommandBehavior behavior)
+        public DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters, CommandBehavior behavior)
         {
             MockConfig mockConfig = this.GetCurrentMockConfig();
             if (mockConfig != null)
