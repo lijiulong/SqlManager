@@ -19,6 +19,8 @@ namespace Franksoft.SqlManager.Definition
         [XmlAttribute]
         public CommandType CommandType { get; set; }
 
+        public event BeforeExecuteEventHandler OnBeforeExecute;
+
         public int ExecuteNonQuery(IDbProvider dbProvider)
         {
             return this.ExecuteNonQuery(dbProvider, null);
@@ -27,11 +29,21 @@ namespace Franksoft.SqlManager.Definition
         public int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
             int result = -1;
-            
-            dbProvider.CommandText = this.ToString();
-            dbProvider.Parameters = parameters;
-            dbProvider.CommandType = this.CommandType;
-            result = dbProvider.ExecuteNonQuery();
+
+            ExecuteQueryEventArgs e = new ExecuteQueryEventArgs();
+            e.Parameters = parameters;
+            e.SqlToExecute = this;
+            e.Cancel = false;
+
+            this.OnBeforeExecute?.Invoke(this, e);
+
+            if (!e.Cancel)            
+            {
+                dbProvider.CommandText = this.ToString();
+                dbProvider.Parameters = e.Parameters;
+                dbProvider.CommandType = this.CommandType;
+                result = dbProvider.ExecuteNonQuery();
+            }
 
             return result;
         }
@@ -45,10 +57,19 @@ namespace Franksoft.SqlManager.Definition
         {
             object result = null;
 
-            dbProvider.CommandText = this.ToString();
-            dbProvider.Parameters = parameters;
-            dbProvider.CommandType = this.CommandType;
-            result = dbProvider.ExecuteScalar();
+            ExecuteQueryEventArgs e = new ExecuteQueryEventArgs();
+            e.Parameters = parameters;
+            e.SqlToExecute = this;
+            e.Cancel = false;
+
+            this.OnBeforeExecute?.Invoke(this, e);
+            if (!e.Cancel)
+            {
+                dbProvider.CommandText = this.ToString();
+                dbProvider.Parameters = e.Parameters;
+                dbProvider.CommandType = this.CommandType;
+                result = dbProvider.ExecuteScalar();
+            }
 
             return result;
         }
@@ -61,11 +82,21 @@ namespace Franksoft.SqlManager.Definition
         public DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DataTable result = new DataTable();
-            
-            dbProvider.CommandText = this.ToString();
-            dbProvider.Parameters = parameters;
-            dbProvider.CommandType = this.CommandType;
-            dbProvider.Fill(result);
+
+            ExecuteQueryEventArgs e = new ExecuteQueryEventArgs();
+            e.Parameters = parameters;
+            e.SqlToExecute = this;
+            e.Cancel = false;
+
+            this.OnBeforeExecute?.Invoke(this, e);
+
+            if (!e.Cancel)
+            {
+                dbProvider.CommandText = this.ToString();
+                dbProvider.Parameters = e.Parameters;
+                dbProvider.CommandType = this.CommandType;
+                dbProvider.Fill(result);
+            }
 
             return result;
         }
@@ -79,10 +110,20 @@ namespace Franksoft.SqlManager.Definition
         {
             int result = -1;
 
-            dbProvider.CommandText = this.ToString();
-            dbProvider.Parameters = parameters;
-            dbProvider.CommandType = this.CommandType;
-            result = dbProvider.Update(dataTable);
+            ExecuteQueryEventArgs e = new ExecuteQueryEventArgs();
+            e.Parameters = parameters;
+            e.SqlToExecute = this;
+            e.Cancel = false;
+
+            this.OnBeforeExecute?.Invoke(this, e);
+
+            if (!e.Cancel)
+            {
+                dbProvider.CommandText = this.ToString();
+                dbProvider.Parameters = e.Parameters;
+                dbProvider.CommandType = this.CommandType;
+                result = dbProvider.Update(dataTable);
+            }
 
             return result;
         }
@@ -96,10 +137,20 @@ namespace Franksoft.SqlManager.Definition
         {
             DbDataReader reader = null;
 
-            dbProvider.CommandText = this.ToString();
-            dbProvider.Parameters = parameters;
-            dbProvider.CommandType = this.CommandType;
-            reader = dbProvider.ExecuteReader();
+            ExecuteQueryEventArgs e = new ExecuteQueryEventArgs();
+            e.Parameters = parameters;
+            e.SqlToExecute = this;
+            e.Cancel = false;
+
+            this.OnBeforeExecute?.Invoke(this, e);
+
+            if (!e.Cancel)
+            {
+                dbProvider.CommandText = this.ToString();
+                dbProvider.Parameters = e.Parameters;
+                dbProvider.CommandType = this.CommandType;
+                reader = dbProvider.ExecuteReader();
+            }
 
             return reader;
         }
@@ -125,5 +176,5 @@ namespace Franksoft.SqlManager.Definition
 
             return result;
         }
-    }
+    }    
 }

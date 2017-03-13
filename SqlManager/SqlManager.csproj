@@ -44,6 +44,8 @@
     <Compile Include="DbProviders\OralceClientProvider.cs" />
     <Compile Include="DbProviders\OleDbProvider.cs" />
     <Compile Include="DbProviders\IDbProvider.cs" />
+    <Compile Include="Definition\ExecuteQueryEventArgs.cs" />
+    <Compile Include="Definition\BeforeExecuteEventHandler.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="KeyDuplicateException.cs" />
     <Compile Include="ModelRegistrationCollectionSection.cs" />
