@@ -104,6 +104,16 @@ namespace Franksoft.SqlManager.Definition
             return reader;
         }
 
+        public override object Clone()
+        {
+            Sql cloneResult = (Sql)base.Clone();
+            cloneResult.Key = this.Key;
+            cloneResult.Command = this.Command;
+            cloneResult.CommandType = this.CommandType;
+
+            return cloneResult;
+        }
+
         public override string ToString()
         {
             string result = base.ToString();

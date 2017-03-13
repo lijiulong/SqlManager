@@ -1,39 +1,39 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.OleDb;
+using System.Data.OracleClient;
 
 namespace Franksoft.SqlManager.DbProviders
 {
-    public class OleDbProvider : BaseDbProvider
+    public class OracleClientProvider : BaseDbProvider
     {
-        public OleDbProvider()
+        public OracleClientProvider()
         {
         }
 
-        public OleDbProvider(string connectionString)
+        public OracleClientProvider(string connectionString)
         {
             this.Initialize(connectionString);
         }
 
-        public OleDbProvider(OleDbConnection connection)
+        public OracleClientProvider(OracleConnection connection)
         {
             this.ConnectionString = connection.ConnectionString;
             this.Connection = connection;
-            this.Command = new OleDbCommand();
+            this.Command = new OracleCommand();
             this.Command.Connection = this.Connection;
-            this.Adapter = new OleDbDataAdapter();
+            this.Adapter = new OracleDataAdapter();
         }
 
-        private OleDbConnection Connection { get; set; }
+        private OracleConnection Connection { get; set; }
 
-        private OleDbCommand Command { get; set; }
+        private OracleCommand Command { get; set; }
 
-        private OleDbDataAdapter Adapter { get; set; }
+        private OracleDataAdapter Adapter { get; set; }
 
         public override DbTransaction BeginTransaction()
         {
-            OleDbTransaction transaction = this.Connection.BeginTransaction();
+            OracleTransaction transaction = this.Connection.BeginTransaction();
             this.Command.Transaction = transaction;
 
             return transaction;
@@ -41,7 +41,7 @@ namespace Franksoft.SqlManager.DbProviders
 
         public override DbTransaction BeginTransaction(IsolationLevel il)
         {
-            OleDbTransaction transaction = this.Connection.BeginTransaction(il);
+            OracleTransaction transaction = this.Connection.BeginTransaction(il);
             this.Command.Transaction = transaction;
 
             return transaction;
@@ -144,10 +144,10 @@ namespace Franksoft.SqlManager.DbProviders
             if (!string.IsNullOrEmpty(connectionString) && !string.Equals(this.ConnectionString, connectionString))
             {
                 this.ConnectionString = connectionString;
-                this.Connection = new OleDbConnection(connectionString);
-                this.Command = new OleDbCommand();
+                this.Connection = new OracleConnection(connectionString);
+                this.Command = new OracleCommand();
                 this.Command.Connection = this.Connection;
-                this.Adapter = new OleDbDataAdapter();
+                this.Adapter = new OracleDataAdapter();
 
                 this.Connection.Open();
             }

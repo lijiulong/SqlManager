@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace Franksoft.SqlManager.Definition
 {
     [Serializable]
-    public class SqlClause
+    public class SqlClause : ICloneable
     {
         #region Constant Strings
 
@@ -58,6 +58,26 @@ namespace Franksoft.SqlManager.Definition
 
         public List<SqlClause> ChildItems { get; set; }
 
+        public virtual object Clone()
+        {
+            SqlClause cloneResult = new SqlClause();
+            cloneResult.Keyword = this.Keyword;
+            cloneResult.LogicalOperator = this.LogicalOperator;
+            cloneResult.Expression = this.Expression;
+
+            if (this.ChildItems != null)
+            {
+                cloneResult.ChildItems = new List<SqlClause>();
+                foreach (SqlClause child in this.ChildItems)
+                {
+                    SqlClause clonedChild= (SqlClause)child.Clone();
+                    ChildItems.Add(clonedChild);
+                }
+            }
+
+            return cloneResult;
+        }
+
         public override string ToString()
         {
             string result = string.Empty;
@@ -99,7 +119,7 @@ namespace Franksoft.SqlManager.Definition
             }
 
             result = this.AddEmptySpaceAfter(result);
-            if (this.Keyword == SqlKeywords.Exists 
+            if (this.Keyword == SqlKeywords.Exists
                 || this.Keyword == SqlKeywords.Fields
                 || this.Keyword == SqlKeywords.SetFields
                 || this.Keyword == SqlKeywords.Values

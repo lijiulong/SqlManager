@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbProviders\BaseDbProvider.cs" />
+    <Compile Include="DbProviders\SqlClientProvider.cs" />
+    <Compile Include="DbProviders\OralceClientProvider.cs" />
     <Compile Include="DbProviders\OleDbProvider.cs" />
     <Compile Include="DbProviders\IDbProvider.cs" />
     <Compile Include="Initializer.cs" />
