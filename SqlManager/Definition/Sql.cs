@@ -21,12 +21,21 @@ namespace Franksoft.SqlManager.Definition
 
         public event BeforeExecuteEventHandler OnBeforeExecute;
 
-        public int ExecuteNonQuery(IDbProvider dbProvider)
+        public static void CopyValueTo(Sql source, Sql target)
+        {
+            target.Key = source.Key;
+            target.Command = source.Command;
+            target.CommandType = source.CommandType;
+
+            source.CopyValueTo((SqlClause)target);
+        }
+
+        public virtual int ExecuteNonQuery(IDbProvider dbProvider)
         {
             return this.ExecuteNonQuery(dbProvider, null);
         }
 
-        public int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
+        public virtual int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
             int result = -1;
 
@@ -48,12 +57,12 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
-        public object ExecuteScalar(IDbProvider dbProvider)
+        public virtual object ExecuteScalar(IDbProvider dbProvider)
         {
             return this.ExecuteScalar(dbProvider, null);
         }
 
-        public object ExecuteScalar(IDbProvider dbProvider, DbParameter[] parameters)
+        public virtual object ExecuteScalar(IDbProvider dbProvider, DbParameter[] parameters)
         {
             object result = null;
 
@@ -74,12 +83,12 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
-        public DataTable Fill(IDbProvider dbProvider)
+        public virtual DataTable Fill(IDbProvider dbProvider)
         {
             return this.Fill(dbProvider, null);
         }
 
-        public DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
+        public virtual DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DataTable result = new DataTable();
 
@@ -101,12 +110,12 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
-        public int Update(IDbProvider dbProvider, DataTable dataTable)
+        public virtual int Update(IDbProvider dbProvider, DataTable dataTable)
         {
             return this.Update(dbProvider, null);
         }
 
-        public int Update(IDbProvider dbProvider, DataTable dataTable, DbParameter[] parameters)
+        public virtual int Update(IDbProvider dbProvider, DataTable dataTable, DbParameter[] parameters)
         {
             int result = -1;
 
@@ -128,12 +137,12 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
-        public DbDataReader GetReader(IDbProvider dbProvider)
+        public virtual DbDataReader GetReader(IDbProvider dbProvider)
         {
             return this.GetReader(dbProvider, null);
         }
 
-        public DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters)
+        public virtual DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DbDataReader reader = null;
 
@@ -157,12 +166,15 @@ namespace Franksoft.SqlManager.Definition
 
         public override object Clone()
         {
-            Sql cloneResult = (Sql)base.Clone();
-            cloneResult.Key = this.Key;
-            cloneResult.Command = this.Command;
-            cloneResult.CommandType = this.CommandType;
+            Sql cloneResult = new Sql();
+            this.CopyValueTo(cloneResult);
 
             return cloneResult;
+        }
+
+        public virtual void CopyValueTo(Sql target)
+        {
+            CopyValueTo(this, target);
         }
 
         public override string ToString()

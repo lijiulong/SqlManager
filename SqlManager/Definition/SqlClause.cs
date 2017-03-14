@@ -58,24 +58,39 @@ namespace Franksoft.SqlManager.Definition
 
         public List<SqlClause> ChildItems { get; set; }
 
+        public static void CopyValueTo(SqlClause source, SqlClause target)
+        {
+            target.Keyword = source.Keyword;
+            target.LogicalOperator = source.LogicalOperator;
+            target.Expression = source.Expression;
+
+            if (source.ChildItems != null)
+            {
+                target.ChildItems = new List<SqlClause>();
+                foreach (SqlClause child in source.ChildItems)
+                {
+                    SqlClause clonedChild = new SqlClause();
+                    child.CopyValueTo(clonedChild);
+                    target.ChildItems.Add(clonedChild);
+                }
+            }
+            else
+            {
+                target.ChildItems = null;
+            }
+        }
+
         public virtual object Clone()
         {
             SqlClause cloneResult = new SqlClause();
-            cloneResult.Keyword = this.Keyword;
-            cloneResult.LogicalOperator = this.LogicalOperator;
-            cloneResult.Expression = this.Expression;
-
-            if (this.ChildItems != null)
-            {
-                cloneResult.ChildItems = new List<SqlClause>();
-                foreach (SqlClause child in this.ChildItems)
-                {
-                    SqlClause clonedChild= (SqlClause)child.Clone();
-                    ChildItems.Add(clonedChild);
-                }
-            }
+            this.CopyValueTo(cloneResult);
 
             return cloneResult;
+        }
+
+        public virtual void CopyValueTo(SqlClause target)
+        {
+            CopyValueTo(this, target);
         }
 
         public override string ToString()
