@@ -15,7 +15,7 @@ namespace Franksoft.SqlManager.Definition
 
         Update = 4,
 
-        Where = 5,
+        Where = 5,        
 
         From = 11,
 
@@ -38,5 +38,13 @@ namespace Franksoft.SqlManager.Definition
         Begin = 6,
 
         End = 7,
+
+        Create = 91,
+
+        Drop = 92,
+
+        Alter = 93,
+
+        Grant = 94,
     }
 }

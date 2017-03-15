@@ -34,9 +34,54 @@ namespace Franksoft.SqlManager.Mock
 
         private List<string> Mocks { get; set; }
 
-        private XmlSerializer StandaloneQueriesMockXmlSerializer { get; set; }        
+        private XmlSerializer StandaloneQueriesMockXmlSerializer { get; set; }
 
-        public Dictionary<string, SqlMock> StandaloneQueriesMock { get; private set; }
+        public override DbDataAdapter Adapter
+        {
+            get
+            {
+                if (this.DbMockProvider != null)
+                {
+                    return this.DbMockProvider.Adapter;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public override DbCommand Command
+        {
+            get
+            {
+                if (this.DbMockProvider != null)
+                {
+                    return this.DbMockProvider.Command;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public override DbConnection Connection
+        {
+            get
+            {
+                if (this.DbMockProvider != null)
+                {
+                    return this.DbMockProvider.Connection;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public IDbProvider DbMockProvider { get; private set; }
 
         public string MockDirectory { get; private set; }
 
@@ -48,21 +93,36 @@ namespace Franksoft.SqlManager.Mock
             }
         }
 
-        public IDbProvider DbMockProvider { get; private set; }
+        public Dictionary<string, SqlMock> StandaloneQueriesMock { get; private set; }
 
         public override DbTransaction BeginTransaction()
         {
-            return null;
+            if (this.DbMockProvider == null)
+            {
+                return null;
+            }
+
+            return this.DbMockProvider.BeginTransaction();
         }
 
         public override DbTransaction BeginTransaction(IsolationLevel il)
         {
-            return null;
+            if (this.DbMockProvider == null)
+            {
+                return null;
+            }
+
+            return this.DbMockProvider.BeginTransaction(il);
         }
 
         public override void Dispose()
         {
-            throw new NotImplementedException();
+            if (this.DbMockProvider == null)
+            {
+                return;
+            }
+
+            this.DbMockProvider.Dispose();
         }
 
         public override int ExecuteNonQuery()
@@ -70,7 +130,7 @@ namespace Franksoft.SqlManager.Mock
             SqlMock sqlMock = this.MapToMock(this.CommandText);
             if (sqlMock != null)
             {
-                return sqlMock.ExecuteNonQuery(this.DbMockProvider,this.Parameters);
+                return sqlMock.ExecuteNonQuery(this.DbMockProvider, this.Parameters);
             }
             else
             {
@@ -139,14 +199,28 @@ namespace Franksoft.SqlManager.Mock
 
         public override DbParameter GetParameter(string parameterName, object value)
         {
-            SQLiteParameter parameter = new SQLiteParameter(parameterName, value);
+            DbParameter parameter = null;
+
+            if (this.DbMockProvider == null)
+            {
+                parameter = new SQLiteParameter(parameterName, value);
+            }
+            else
+            {
+                parameter = this.DbMockProvider.GetParameter(parameterName, value);
+            }
 
             return parameter;
         }
 
         public override void Initialize(string connectionString)
         {
-            
+            if (this.DbMockProvider == null)
+            {
+                return;
+            }
+
+            this.DbMockProvider.Initialize(connectionString);
         }
 
         public override int Update(DataTable dataTable)

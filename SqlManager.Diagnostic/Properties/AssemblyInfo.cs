@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SqlManager")]
-[assembly: AssemblyDescription("A sql manager for dotnet.")]
+[assembly: AssemblyTitle("SqlManager.Diagnostic")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Franksoft")]
-[assembly: AssemblyProduct("SqlManager")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SqlManager.Diagnostic")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d2105e0c-f81a-4a59-a215-dff23bbd3096")]
+[assembly: Guid("e40729ff-c4e2-4d69-8ea9-c7ec32d7711f")]
 
 // Version information for an assembly consists of the following four values:
 //

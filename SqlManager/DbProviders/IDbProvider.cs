@@ -7,9 +7,15 @@ namespace Franksoft.SqlManager.DbProviders
 {
     public interface IDbProvider : IDisposable
     {
+        DbDataAdapter Adapter { get; }
+
+        DbCommand Command { get; }
+
         string CommandText { get; set; }
 
         CommandType CommandType { get; set; }
+
+        DbConnection Connection { get; }
 
         string ConnectionString { get; }
 
