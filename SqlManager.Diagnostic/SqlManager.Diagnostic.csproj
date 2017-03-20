@@ -41,9 +41,11 @@
     <Compile Include="BeforeEventArgs.cs" />
     <Compile Include="BeforeMethodEventHandler.cs" />
     <Compile Include="BeforeSqlEventHandler.cs" />
+    <Compile Include="DiagnosticHelper.cs" />
     <Compile Include="DiagnosticProvider.cs" />
     <Compile Include="BeforeSqlEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlDiagnosticWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlManager\SqlManager.csproj">

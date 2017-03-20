@@ -147,7 +147,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override int ExecuteNonQuery()
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "ExecuteNonQuery");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteNonQuery");
             be.MethodParameters = null;
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -168,7 +168,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "ExecuteNonQuery", null, outputValues, executedTime, be.Cancel);
             AfterExecuteNonQuery?.Invoke(this, ae);
 
@@ -177,7 +177,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override DbDataReader ExecuteReader()
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "ExecuteReader");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteReader");
             be.MethodParameters = null;
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -198,7 +198,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "ExecuteReader", null, outputValues, executedTime, be.Cancel);
             AfterExecuteReader?.Invoke(this, ae);
 
@@ -207,7 +207,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override DbDataReader ExecuteReader(CommandBehavior behavior)
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "ExecuteReader");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteReader");
             be.MethodParameters = new ArrayList() { behavior };
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -229,7 +229,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "ExecuteReader", ArrayList.ReadOnly(be.MethodParameters),
                 outputValues, executedTime, be.Cancel);
             AfterExecuteReader?.Invoke(this, ae);
@@ -239,7 +239,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override object ExecuteScalar()
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "ExecuteScalar");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteScalar");
             be.MethodParameters = null;
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -260,7 +260,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "ExecuteScalar", null, outputValues, executedTime, be.Cancel);
             AfterExecuteScalar?.Invoke(this, ae);
 
@@ -269,7 +269,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override int Fill(DataTable dataTable)
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "Fill");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "Fill");
             be.MethodParameters = new ArrayList() { dataTable };
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -291,7 +291,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "Fill", ArrayList.ReadOnly(be.MethodParameters),
                 outputValues, executedTime, be.Cancel);
             AfterFill?.Invoke(this, ae);
@@ -321,7 +321,7 @@ namespace Franksoft.SqlManager.Diagnostic
 
         public override int Update(DataTable dataTable)
         {
-            BeforeSqlEventArgs be = new BeforeSqlEventArgs(this.ParseSqlKeywords(this.CommandText), "Update");
+            BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "Update");
             be.MethodParameters = new ArrayList() { dataTable };
             be.SqlCommandText = this.CommandText;
             be.SqlCommandType = this.CommandType;
@@ -343,106 +343,12 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             outputValues.Add(result);
-            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, this.ParseSqlKeywords(be.SqlCommandText),
+            AfterSqlEventArgs ae = new AfterSqlEventArgs(be.SqlCommandText, DiagnosticHelper.ParseSqlKeywords(be.SqlCommandText),
                 be.SqlCommandType, be.SqlParameters, "Update", ArrayList.ReadOnly(be.MethodParameters),
                 outputValues, executedTime, be.Cancel);
             AfterUpdate?.Invoke(this, ae);
 
             return result;
-        }
-
-        private ReadOnlyCollection<SqlKeywords> ParseSqlKeywords(string sqlCommandText)
-        {
-            List<SqlKeywords> result = new List<SqlKeywords>();
-
-            string onelineSql = string.Format(" {0} ", sqlCommandText.Replace(Environment.NewLine, " "));
-
-            if (onelineSql.IndexOf(" ALTER ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Alter);
-            }
-
-            if (onelineSql.IndexOf(" BEGIN ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Begin);
-            }
-
-            if (onelineSql.IndexOf(" CREATE ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Create);
-            }
-
-            if (onelineSql.IndexOf(" DELETE ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.DeleteFrom);
-            }
-
-            if (onelineSql.IndexOf(" DROP ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Drop);
-            }
-
-            if (onelineSql.IndexOf(" END ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.End);
-            }
-
-            if (onelineSql.IndexOf(" EXISTS ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Exists);
-            }
-
-            if (onelineSql.IndexOf(" FROM ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.From);
-            }
-
-            if (onelineSql.IndexOf(" GRANT ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Grant);
-            }
-
-            if (onelineSql.IndexOf(" GROUP BY ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.GroupBy);
-            }
-
-            if (onelineSql.IndexOf(" INSERT INTO ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.InsertInto);
-            }
-
-            if (onelineSql.IndexOf(" ORDER BY ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.OrderBy);
-            }
-
-            if (onelineSql.IndexOf(" SELECT ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Select);
-            }
-
-            if (onelineSql.IndexOf(" SET ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Set);
-            }
-
-            if (onelineSql.IndexOf(" UPDATE ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Update);
-            }
-
-            if (onelineSql.IndexOf(" VALUES ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Values);
-            }
-
-            if (onelineSql.IndexOf(" WHERE ", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                result.Add(SqlKeywords.Where);
-            }
-
-            return result.AsReadOnly();
         }
     }
 }

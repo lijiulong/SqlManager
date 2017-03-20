@@ -130,5 +130,22 @@ namespace Franksoft.SqlManager
 
             return result;
         }
+
+        public string FindKey(string sqlCommandText)
+        {
+            string key = null;
+
+            foreach (KeyValuePair<string, Sql> keyValuePair in this.StandaloneQueries)
+            {
+                string sqlText = keyValuePair.Value.ToString();
+                if (string.Equals(sqlCommandText, sqlText, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    key = keyValuePair.Key;
+                    break;
+                }
+            }
+
+            return key;
+        }
     }
 }

@@ -84,6 +84,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SqlManager.Diagnostic\SqlManager.Diagnostic.csproj">
+      <Project>{e40729ff-c4e2-4d69-8ea9-c7ec32d7711f}</Project>
+      <Name>SqlManager.Diagnostic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlManager.Mock\SqlManager.Mock.csproj">
       <Project>{f53797fd-92ac-4ccb-a0f2-a539d06a616d}</Project>
       <Name>SqlManager.Mock</Name>

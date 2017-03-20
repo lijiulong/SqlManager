@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 
 using Franksoft.SqlManager.DbProviders;
+using Franksoft.SqlManager.Diagnostic;
 using Franksoft.SqlManager.Mock;
 
 namespace Franksoft.SqlManager.Tester
@@ -18,6 +19,7 @@ namespace Franksoft.SqlManager.Tester
             MockProvider provider = new MockProvider(sqliteProvider);
 
             SqlManager.Instance.DbProvider = provider;
+            SqlDiagnosticWrapper.ConvertEntireCollection();
             using (var reader = SqlManager.Instance.GetStandaloneQueryReader("a"))
             {
                 while(reader.Read())
