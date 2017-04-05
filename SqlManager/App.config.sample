@@ -6,6 +6,7 @@
   <appSettings>
     <add key="SqlManager.ModelDirectory" value="models"/>
     <add key="SqlManager.IgnoreDuplicateKeys" value="false"/>
+    <add key="SqlManager.UseAppDomainForRelativePath" value="false"/>
   </appSettings>
   <ModelRegistrations>
     <pathes>

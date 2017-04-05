@@ -72,11 +72,6 @@ namespace Franksoft.SqlManager
             }
         }
 
-        public static string ProcessRelativePath(string relativePath)
-        {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
-        }
-
         public DbDataReader GetStandaloneQueryReader(string key)
         {
             return this.GetStandaloneQueryReader(key, null);
@@ -146,6 +141,11 @@ namespace Franksoft.SqlManager
             }
 
             return key;
+        }
+
+        public string ProcessRelativePath(string relativePath)
+        {
+            return Initializer.Instance.ProcessRelativePath(relativePath);
         }
     }
 }

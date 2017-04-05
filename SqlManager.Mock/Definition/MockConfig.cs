@@ -110,7 +110,7 @@ namespace Franksoft.SqlManager.Mock.Definition
 
             this.DataTableSource = new DataTable();
 
-            string path = SqlManager.ProcessRelativePath(this.CsvFilePath);
+            string path = SqlManager.Instance.ProcessRelativePath(this.CsvFilePath);
             if (!string.IsNullOrEmpty(path) && File.Exists(path))
             {
                 using (Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))

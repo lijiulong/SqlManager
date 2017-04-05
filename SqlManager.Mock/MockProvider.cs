@@ -259,14 +259,14 @@ namespace Franksoft.SqlManager.Mock
             {
                 this.MockDirectory = mockDirectory;
             }
-            this.MockDirectory = SqlManager.ProcessRelativePath(this.MockDirectory);
+            this.MockDirectory = SqlManager.Instance.ProcessRelativePath(this.MockDirectory);
 
             var mocks = ConfigurationManager.GetSection(MOCK_REGISTRATION_SECTION_NAME) as MockRegistrationSection;
             if (mocks != null)
             {
                 foreach (MockRegistrationElement path in mocks.Pathes)
                 {
-                    this.Mocks.Add(SqlManager.ProcessRelativePath(path.Path));
+                    this.Mocks.Add(SqlManager.Instance.ProcessRelativePath(path.Path));
                 }
             }
 
