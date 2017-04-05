@@ -84,7 +84,8 @@ namespace Franksoft.SqlManager
             }
             else
             {
-                this.RelativePath = Assembly.GetExecutingAssembly().Location;
+                FileInfo assembly = new FileInfo(Assembly.GetExecutingAssembly().Location);                
+                this.RelativePath = assembly.DirectoryName;
             }
 
             string modelDirectory = ConfigurationManager.AppSettings[MODEL_DIRECTORY_CONFIG_KEY];
