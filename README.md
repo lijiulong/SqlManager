@@ -52,14 +52,26 @@ SqlManager in an ERP system, but it can be used in some part of such large syste
 
 ## Road map
 Currently SqlManager is already used in enterprise applications. All planned functions are completed. There is no plan
-to add more functions inside SqlManager. But there are several point may need updates in the future:
+to add more functions inside SqlManager. But there are several points may need updates in the future:
 
-1. There might be small interface changes when I develop other components based on SqlManager;
+1. There might be small changes about interface when I develop other components based on SqlManager;
 2. Currently there is only one way to build sql script according to definition inside xml files, it's possible to expose
 that part as interface for extensions in the future;
 3. Performance is not observed yet, it should share the same performance with native ADO.Net code. If any performance
 issue is found in the future, I will try to solve it. It's possible to change some of the interface.
 
 ## Copyright and license
+SqlManager is licensed under GNU Lesser General Public License v3.0 (LGPLv3). The purpose is to make it useful and
+available for most people, but also able to recieve enhancements to this library. For complete license detail, please
+refer to [LICENSE](LICENSE).
 
 ## Version history
+### Current version
+* SqlManager: 1.0.1.1
+    SqlManager now supports location of assembly as default base path of relative path. App domain path will be enabled
+    only by configuration.
+* SqlManager.SQLiteProvider: 1.0.0.0
+* SqlManager.Mock: 1.0.0.1
+    Update code according to SqlManager changes.
+* SqlManager.Diagnostic: 1.0.0.1
+    Add SqlDiagnosticWrapper to SqlManager.Diagnostic.
