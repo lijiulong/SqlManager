@@ -9,19 +9,17 @@ scripts inside dot net applications.
 
 There are two purposes for creating SqlManager:
 
-1. Seperate sql scripts from dot net code.
+1. Seperate sql scripts from dot net code.  
+    It's not a good idea to mix them together. Before I build this library, I got a task to add some function in an
+    enterprise application. The source code mixed everything together. It's very difficult to understand the logic. At
+    last, I found it impossible to reuse the code. Since I have the opportunity to rebuild that part, I decide to build
+    a library to support my purpose.
 
-It's not a good idea to mix them together. Before I build this library, I got a task to add some function in an
-enterprise application. The source code mixed everything together. It's very difficult to understand the logic. At
-last, I found it impossible to reuse the code. Since I have the opportunity to rebuild that part, I decide to build a
-library to support my purpose.
-
-2. Support test driven development & unit testings.
-
-In my case, the part I need to rebuild is a calculation library. Result value is very important but it's also difficult
-to test, because that application needs to get huge amount of data from database and use them to calculate. After
-calculation, data will be updated and cannot be used in next run. If it's able to control the input and output process,
-it will be easier to write unit test cases.
+2. Support test driven development & unit testings.  
+    In my case, the part I need to rebuild is a calculation library. Result value is very important but it's also
+    difficult to test, because that application needs to get huge amount of data from database and use them to
+    calculate. After calculation, data will be updated and cannot be used in next run. If it's able to control the input
+    and output process, it will be easier to write unit test cases.
 
 ## Why SqlManager?
 There are similar solutions especially those light weight ORM solutions which can solve the first or second problem.
@@ -52,20 +50,20 @@ SqlManager in an ERP system, but it can be used in some part of such large syste
 
 ## How to use SqlManager?
 Store your sql scripts inside an xml file. You can organize those files by folders or put them in different places. For
-the content and format of xml file, please refer to [this sample file](SqlManager\StandaloneQueries_Sample.xml).
+the content and format of xml file, please refer to [this sample file](SqlManager/StandaloneQueries_Sample.xml).
 
 In your program, you need to add `Franksoft.SqlManager.DbProviders` to namespace usings and create a new instance of
 any type of DbProvider. DbProvider is a wrap class of native ADO.Net class. You can create a new instance like this:
 
-    ```C#
-    OleDbProvider provider = new OleDbProvider(connectionString);
-    ```
+```C#
+OleDbProvider provider = new OleDbProvider(connectionString);
+```
 
 After create this provider, assign it to SqlManager, so that SqlManager will be able to use this provider.
 
-    ```C#
-    SqlManager.Instance.DbProvider = provider;
-    ```
+```C#
+SqlManager.Instance.DbProvider = provider;
+```
 
 Then you can access all methods in `SqlManager.Instance` such as `DbDataReader GetStandaloneQueryReader(string key)`,
 `int ExecuteStandaloneNonQuery(string key)` or `object ExecuteStandaloneScalar(string key)`. You can get results
