@@ -66,12 +66,12 @@ available for most people, but also able to recieve enhancements to this library
 refer to [LICENSE](LICENSE).
 
 ## Version history
-### Current version
-* SqlManager: 1.0.1.1
+### Latest release
+* SqlManager: 1.0.1.1  
     SqlManager now supports location of assembly as default base path of relative path. App domain path will be enabled
     only by configuration.
-* SqlManager.SQLiteProvider: 1.0.0.0
-* SqlManager.Mock: 1.0.0.1
+* SqlManager.SQLiteProvider: 1.0.0.0  
+* SqlManager.Mock: 1.0.0.1  
     Update code according to SqlManager changes.
-* SqlManager.Diagnostic: 1.0.0.1
+* SqlManager.Diagnostic: 1.0.0.1  
     Add SqlDiagnosticWrapper to SqlManager.Diagnostic.
