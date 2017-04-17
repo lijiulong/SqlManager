@@ -12,5 +12,9 @@
     <releaseNotes>Fix a code error.</releaseNotes>
     <copyright>Franksoft 2017</copyright>
     <tags></tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0" />
+      <dependency id="SqlManager" version="[1.0.1.1,2.0.0.0)" />
+    </dependencies>
   </metadata>
 </package>

@@ -49,8 +49,16 @@ results. And there is a strong need to write unit testing cases for the applicat
 SqlManager in an ERP system, but it can be used in some part of such large system.
 
 ## How to use SqlManager?
-Store your sql scripts inside an xml file. You can organize those files by folders or put them in different places. For
-the content and format of xml file, please refer to [this sample file](SqlManager/StandaloneQueries_Sample.xml).
+SqlManager can be installed from [Nuget](https://docs.nuget.org/docs/start-here/installing-nuget) Package Manager UI in
+Visual Studio or via Package Manager Console with the following command:
+
+```
+PM> Install-Package SqlManager
+```
+
+To work with SqlManager, you need to store your sql scripts inside an xml file. You can organize those files by folders
+or put them in different places. For content and format of query xml files, please refer to
+[this sample file](SqlManager/StandaloneQueries_Sample.xml).
 
 In your program, you need to add `Franksoft.SqlManager.DbProviders` to namespace usings and create a new instance of
 any type of DbProvider. DbProvider is a wrap class of native ADO.Net class. You can create a new instance like this:

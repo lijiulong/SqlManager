@@ -78,13 +78,13 @@ namespace Franksoft.SqlManager
                 this.UseAppDomainForRelativePath = isUseAppDomainForRelativePath;
             }
 
-            if(this.UseAppDomainForRelativePath)
+            if (this.UseAppDomainForRelativePath)
             {
                 this.RelativePath = AppDomain.CurrentDomain.BaseDirectory;
             }
             else
             {
-                FileInfo assembly = new FileInfo(Assembly.GetExecutingAssembly().Location);                
+                FileInfo assembly = new FileInfo(Assembly.GetExecutingAssembly().Location);
                 this.RelativePath = assembly.DirectoryName;
             }
 
@@ -114,9 +114,9 @@ namespace Franksoft.SqlManager
                 }
             }
 
-            string ignoreDuplicateKeys= ConfigurationManager.AppSettings[IGNORE_DUPLICATE_KEYS_CONFIG_KEY];
+            string ignoreDuplicateKeys = ConfigurationManager.AppSettings[IGNORE_DUPLICATE_KEYS_CONFIG_KEY];
             bool isIgnoreDuplicateKeys = IGNORE_DUPLICATE_KEYS_DEFAULT_VALUE;
-            if(bool.TryParse(ignoreDuplicateKeys, out isIgnoreDuplicateKeys))
+            if (bool.TryParse(ignoreDuplicateKeys, out isIgnoreDuplicateKeys))
             {
                 this.IgnoreDuplicateKeys = isIgnoreDuplicateKeys;
             }

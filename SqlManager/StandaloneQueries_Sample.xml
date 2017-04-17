@@ -1,10 +1,10 @@
 <StandaloneQueries>
-  <Sql Key="a" Command="1" CommandType="Text">
+  <Sql Key="a">
     <ChildItems>
       <SqlClause Keyword="Select">
         <ChildItems>
-          <SqlClause Expression="O.A AS 'A'" />
-          <SqlClause Expression="O.B AS 'B'" />
+          <SqlClause Expression="A AS 'A1'" />
+          <SqlClause Expression="B AS 'B1'" />
         </ChildItems>
       </SqlClause>
       <SqlClause Keyword="From" Expression="TableA"/>
@@ -27,6 +27,6 @@
       </SqlClause>
     </ChildItems>
   </Sql>
-  <Sql Key="b" Command="2" CommandType="StoredProcedure" />
-  <Sql Key="c" Command="3" CommandType="TableDirect" />
+  <Sql Key="b" Command="select * from TableA" />
+  <Sql Key="key" Command="select * from dual" />
 </StandaloneQueries>

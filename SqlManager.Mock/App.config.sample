@@ -8,9 +8,9 @@
   </appSettings>
   <MockRegistrationSection>
     <pathes>
-      <add path="models\01.xml"/>
-      <add path="models\02.xml"/>
-      <add path="models\03.xml"/>
+      <add path="mocks\01.xml"/>
+      <add path="mocks\02.xml"/>
+      <add path="mocks\03.xml"/>
     </pathes>
   </MockRegistrationSection>
 </configuration>
