@@ -67,7 +67,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cd $(SolutionDir)\nuget
+    <PostBuildEvent>cd $(SolutionDir)nuget
 xcopy $(TargetDir)$(TargetName).dll SqlManager\lib\net20\ /y
 xcopy $(TargetDir)$(TargetName).pdb SqlManager\lib\net20\ /y
 xcopy $(TargetDir)$(TargetName).xml SqlManager\lib\net20\ /y
