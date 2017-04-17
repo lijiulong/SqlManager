@@ -95,5 +95,19 @@ refer to [LICENSE](LICENSE).
 * SqlManager.SQLiteProvider: 1.0.0.0  
 * SqlManager.Mock: 1.0.0.1  
     Update code according to SqlManager changes.
+* SqlManager.Diagnostic: 1.0.0.2  
+    Fix a code error.
+
+### 2017-04-17
+* SqlManager.Diagnostic: 1.0.0.2  
+    Fix a code error.
+
+### 2017-04-14
+* SqlManager: 1.0.1.1  
+    SqlManager now supports location of assembly as default base path of relative path. App domain path will be enabled
+    only by configuration.
+* SqlManager.SQLiteProvider: 1.0.0.0  
+* SqlManager.Mock: 1.0.0.1  
+    Update code according to SqlManager changes.
 * SqlManager.Diagnostic: 1.0.0.1  
     Add SqlDiagnosticWrapper to SqlManager.Diagnostic.
