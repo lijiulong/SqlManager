@@ -63,8 +63,9 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>cd $(SolutionDir)\nuget
-xcopy $(TargetDir)$(TargetName).dll SqlManager.SQLiteProvider\lib\net20\
-xcopy $(TargetDir)$(TargetName).pdb SqlManager.SQLiteProvider\lib\net20\
+xcopy $(TargetDir)$(TargetName).dll SqlManager.SQLiteProvider\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).pdb SqlManager.SQLiteProvider\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).xml SqlManager.SQLiteProvider\lib\net20\ /y
 bin\nuget pack SqlManager.SQLiteProvider\SqlManager.SQLiteProvider.nuspec</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

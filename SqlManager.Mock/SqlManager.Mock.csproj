@@ -77,8 +77,9 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>cd $(SolutionDir)\nuget
-xcopy $(TargetDir)$(TargetName).dll SqlManager.Mock\lib\net20\
-xcopy $(TargetDir)$(TargetName).pdb SqlManager.Mock\lib\net20\
+xcopy $(TargetDir)$(TargetName).dll SqlManager.Mock\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).pdb SqlManager.Mock\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).xml SqlManager.Mock\lib\net20\ /y
 bin\nuget pack SqlManager.Mock\SqlManager.Mock.nuspec</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

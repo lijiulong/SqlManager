@@ -57,8 +57,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>cd $(SolutionDir)\nuget
-xcopy $(TargetDir)$(TargetName).dll SqlManager.Diagnostic\lib\net20\
-xcopy $(TargetDir)$(TargetName).pdb SqlManager.Diagnostic\lib\net20\
+xcopy $(TargetDir)$(TargetName).dll SqlManager.Diagnostic\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).pdb SqlManager.Diagnostic\lib\net20\ /y
+xcopy $(TargetDir)$(TargetName).xml SqlManager.Diagnostic\lib\net20\ /y
 bin\nuget pack SqlManager.Diagnostic\SqlManager.Diagnostic.nuspec</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
