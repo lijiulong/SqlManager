@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>SqlManager.Mock</id>
+    <version>1.0.0.1</version>
+    <authors>Frank Li</authors>
+    <owners>Frank Li</owners>
+    <projectUrl>https://github.com/lijiulong/SqlManager</projectUrl>
+    <licenseUrl>https://github.com/lijiulong/SqlManager/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The mock utilities for SqlManager. It can be used to design unit test cases for applications using SqlManager.</description>
+    <releaseNotes>1.0.0.1</releaseNotes>
+    <copyright>Franksoft 2017</copyright>
+    <tags></tags>
+    <dependencies>
+      <dependency id="System.Data.SQLite.Core" version="[1.0.104.0,)" />
+    </dependencies>
+  </metadata>
+</package>
