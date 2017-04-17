@@ -131,7 +131,7 @@ namespace Franksoft.SqlManager.Diagnostic
         {
             BeforeEventArgs be = new BeforeEventArgs("Dispose");
             be.MethodParameters = null;
-            BeforeBeginTransaction?.Invoke(this, be);
+            BeforeDispose?.Invoke(this, be);
             int startTime = Environment.TickCount;
 
             if (!be.Cancel)
@@ -142,7 +142,7 @@ namespace Franksoft.SqlManager.Diagnostic
             int endTime = Environment.TickCount;
             int executedTime = endTime - startTime;
             AfterEventArgs ae = new AfterEventArgs("Dispose", null, null, executedTime, be.Cancel);
-            AfterBeginTransaction?.Invoke(this, ae);
+            AfterDispose?.Invoke(this, ae);
         }
 
         public override int ExecuteNonQuery()
