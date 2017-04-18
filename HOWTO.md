@@ -239,6 +239,9 @@ According to dot net documentation, it is "the code page name of the preferred e
 
 ## SqlManager.Diagnostic
 ### Quick start
+SqlManager.Diagnostic is designed to enable developers to collect as much information as they want from applications
+built with SqlManager and change application behaviours when necessary without change any code inside the application.
+
 SqlManager.Diagnostic can be installed from [Nuget](https://docs.nuget.org/docs/start-here/installing-nuget) Package
 Manager UI in Visual Studio or via Package Manager Console with the following command:
 
@@ -247,6 +250,38 @@ PM> Install-Package SqlManager.Diagnostic
 ```
 
 If SqlManager is not installed yet, it will also be installed by nuget as a dependency.
+
+Currently there are two ways to create diagnositc functions. One way is using IDbProvider wrapper class:
+`DiagnosticProvider`, another way is via Sql wrapper class: `SqlDiagnosticWrapper`.
+
+With events inside `DiagnosticProvider`, you will be able to get messages of every method call to provider.
+
+For events with "Before" prefix, such as `BeforeExecuteNonQuery` and `BeforeDispose`, you will be able to get all
+parameters sent to the method, you can change the parameter if necessary and you can cancel the method from execution.
+
+For events with "After" prefix, such as `AfterExecuteNonQuery` and `AfterDispose`, you will be able to get parameters
+sent to the method, output values, and executed time duration of the method. You can change output values if necessary.
+
+To use `DiagnosticProvider` in your program, you need to add `Franksoft.SqlManager.Diagnostic` to namespace usings and
+create a new instance of `DiagnosticProvider`:
+
+```C#
+OleDbProvider dbProvider = new OleDbProvider(connectionString);
+DiagnosticProvider provider = new DiagnosticProvider(dbProvider);
+```
+
+After create this provider, assign it to SqlManager, so that SqlManager will be able to use diagnostic provider.
+
+```C#
+SqlManager.Instance.DbProvider = provider;
+```
+
+With events inside `SqlDiagnosticWrapper`, you will be able to get messages of every method call to the specific `Sql`
+object. The way to use `SqlDiagnosticWrapper` is much similar with `DiagnosticProvider`.
+
+You can create a `SqlDiagnosticWrapper` object with static method `WrapSql(Sql sql)` inside `SqlDiagnosticWrapper`
+class. Or you can convert entire sql query collection inside SqlManager with static method `ConvertEntireCollection()`,
+which is also a static method in `SqlDiagnosticWrapper` class.
 
 ### Class documentations
 (To be updated later.)
