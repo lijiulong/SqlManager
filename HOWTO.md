@@ -163,7 +163,7 @@ SqlManager.Mock can also work without any configuration. And of course there is 
 
 There is one extra application setting item available now:
 
-* SqlManager.MockDirectory 
+* SqlManager.MockDirectory  
 A string type value. It indicates the directory to search for mock files. The default value is also the root directory
 of SqlManager assembly. You can change it to relative path or absolute path. SqlManager will search xml files in all
 subdirectories under that path.

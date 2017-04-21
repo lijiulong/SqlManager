@@ -46,7 +46,7 @@ namespace Franksoft.SqlManager
 
         public bool UseAppDomainForRelativePath { get; private set; }
 
-        public string RelativePath { get; private set; }
+        public string RelativePathBase { get; private set; }
 
         public ICollection<string> ModelRegistration
         {
@@ -58,7 +58,7 @@ namespace Franksoft.SqlManager
 
         public string ProcessRelativePath(string relativePath)
         {
-            return Path.Combine(this.RelativePath, relativePath);
+            return Path.Combine(this.RelativePathBase, relativePath);
         }
 
         private void InitializeMembers()
@@ -80,12 +80,12 @@ namespace Franksoft.SqlManager
 
             if (this.UseAppDomainForRelativePath)
             {
-                this.RelativePath = AppDomain.CurrentDomain.BaseDirectory;
+                this.RelativePathBase = AppDomain.CurrentDomain.BaseDirectory;
             }
             else
             {
                 FileInfo assembly = new FileInfo(Assembly.GetExecutingAssembly().Location);
-                this.RelativePath = assembly.DirectoryName;
+                this.RelativePathBase = assembly.DirectoryName;
             }
 
             string modelDirectory = ConfigurationManager.AppSettings[MODEL_DIRECTORY_CONFIG_KEY];
