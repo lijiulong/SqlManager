@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Franksoft.SqlManager.Definition
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class SqlClause : ICloneable
     {
@@ -47,17 +50,34 @@ namespace Franksoft.SqlManager.Definition
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlAttribute]
         public SqlKeywords Keyword { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlAttribute]
         public SqlLogicalOperator LogicalOperator { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlAttribute]
         public string Expression { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<SqlClause> ChildItems { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
         public static void CopyValueTo(SqlClause source, SqlClause target)
         {
             target.Keyword = source.Keyword;
@@ -80,6 +100,10 @@ namespace Franksoft.SqlManager.Definition
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public virtual object Clone()
         {
             SqlClause cloneResult = new SqlClause();
@@ -88,11 +112,19 @@ namespace Franksoft.SqlManager.Definition
             return cloneResult;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
         public virtual void CopyValueTo(SqlClause target)
         {
             CopyValueTo(this, target);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string result = string.Empty;
@@ -154,6 +186,11 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
         private string GetKeyword(SqlKeywords keyword)
         {
             string result = string.Empty;
@@ -208,6 +245,11 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logicalOperator"></param>
+        /// <returns></returns>
         private string GetLogicalOperator(SqlLogicalOperator logicalOperator)
         {
             string result = string.Empty;
@@ -228,6 +270,11 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         private string AddEmptySpaceBefore(string expression)
         {
             string result = expression;
@@ -240,6 +287,11 @@ namespace Franksoft.SqlManager.Definition
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         private string AddEmptySpaceAfter(string expression)
         {
             string result = expression;

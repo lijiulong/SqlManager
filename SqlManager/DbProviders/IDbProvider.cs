@@ -92,7 +92,7 @@ namespace Franksoft.SqlManager.DbProviders
         /// </summary>
         /// <param name="dataTable">The name of the <see cref="DataTable"/> to use for table mapping.</param>
         /// <returns>
-        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>.
+        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>. 
         /// This does not include rows affected by statements that do not return rows.
         /// </returns>
         int Fill(DataTable dataTable);
