@@ -66,14 +66,14 @@ namespace Franksoft.SqlManager.DbProviders
         int ExecuteNonQuery();
 
         /// <summary>
-        /// Executes the <see cref="CommandText"/> against the <see cref="Connection"/> object, 
+        /// Executes the <see cref="CommandText"/> against the <see cref="Connection"/> object,
         /// returns a <see cref="DbDataReader"/> instance.
         /// </summary>
         /// <returns>A <see cref="DbDataReader"/> instance of the executed <see cref="CommandText"/>.</returns>
         DbDataReader ExecuteReader();
 
         /// <summary>
-        /// Executes the <see cref="CommandText"/> against the <see cref="Connection"/> object, 
+        /// Executes the <see cref="CommandText"/> against the <see cref="Connection"/> object,
         /// returns a <see cref="DbDataReader"/> instance using one of the <see cref="CommandBehavior"/>.
         /// </summary>
         /// <param name="behavior">One of the <see cref="CommandBehavior"/> values.</param>
@@ -81,7 +81,7 @@ namespace Franksoft.SqlManager.DbProviders
         DbDataReader ExecuteReader(CommandBehavior behavior);
 
         /// <summary>
-        /// Executes the query and returns the first column of the first row in the result set returned by the query. 
+        /// Executes the query and returns the first column of the first row in the result set returned by the query.
         /// All other columns and rows are ignored.
         /// </summary>
         /// <returns>First column of the first row in the result set returned by the query.</returns>
@@ -92,7 +92,7 @@ namespace Franksoft.SqlManager.DbProviders
         /// </summary>
         /// <param name="dataTable">The name of the <see cref="DataTable"/> to use for table mapping.</param>
         /// <returns>
-        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>. 
+        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>.
         /// This does not include rows affected by statements that do not return rows.
         /// </returns>
         int Fill(DataTable dataTable);
@@ -113,7 +113,7 @@ namespace Franksoft.SqlManager.DbProviders
         DbParameter[] GetParameterArray(params object[] values);
 
         /// <summary>
-        /// Creates and returns an array of <see cref="DbParameter"/> objects with 
+        /// Creates and returns an array of <see cref="DbParameter"/> objects with
         /// <see cref="KeyValuePair{string, object}"/> objects.
         /// </summary>
         /// <param name="nameValuePairs">

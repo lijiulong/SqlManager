@@ -35,10 +35,10 @@ namespace Franksoft.SqlManager.Definition
         public CommandType CommandType { get; set; }
 
         /// <summary>
-        /// 
+        /// Copies value including all child <see cref="SqlClause"/> items from source object to target object.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
+        /// <param name="source">The source object to copy value from.</param>
+        /// <param name="target">The target object to copy value to.</param>
         public static void CopyValueTo(Sql source, Sql target)
         {
             target.Key = source.Key;
@@ -49,20 +49,22 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object as nonquery sql against the <see cref="IDbProvider"/> parameter,
+        /// returns the number of rows affected.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <returns>The number of rows affected.</returns>
         public virtual int ExecuteNonQuery(IDbProvider dbProvider)
         {
             return this.ExecuteNonQuery(dbProvider, null);
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object as nonquery sql with parameters against the
+        /// <see cref="IDbProvider"/> parameter, returns the number of rows affected.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="parameters"></param>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
         /// <returns></returns>
         public virtual int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
@@ -77,21 +79,25 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter
+        /// and returns the first column of the first row in the result set returned by the query.
+        /// All other columns and rows are ignored.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <returns>First column of the first row in the result set returned by the query.</returns>
         public virtual object ExecuteScalar(IDbProvider dbProvider)
         {
             return this.ExecuteScalar(dbProvider, null);
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter
+        /// and returns the first column of the first row in the result set returned by the query.
+        /// All other columns and rows are ignored.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
+        /// <returns>First column of the first row in the result set returned by the query.</returns>
         public virtual object ExecuteScalar(IDbProvider dbProvider, DbParameter[] parameters)
         {
             object result = null;
@@ -105,21 +111,27 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <returns>
+        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>.
+        /// This does not include rows affected by statements that do not return rows.
+        /// </returns>
         public virtual DataTable Fill(IDbProvider dbProvider)
         {
             return this.Fill(dbProvider, null);
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
+        /// <returns>
+        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>.
+        /// This does not include rows affected by statements that do not return rows.
+        /// </returns>
         public virtual DataTable Fill(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DataTable result = new DataTable();
@@ -133,23 +145,23 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="dataTable"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="dataTable">The <see cref="DataTable"/> used to update the data source.</param>
+        /// <returns>The number of rows successfully updated from the <see cref="DataTable"/>.</returns>
         public virtual int Update(IDbProvider dbProvider, DataTable dataTable)
         {
             return this.Update(dbProvider, null);
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="dataTable"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="dataTable">The <see cref="DataTable"/> used to update the data source.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
+        /// <returns>The number of rows successfully updated from the <see cref="DataTable"/>.</returns>
         public virtual int Update(IDbProvider dbProvider, DataTable dataTable, DbParameter[] parameters)
         {
             int result = -1;
@@ -163,21 +175,23 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter,
+        /// returns a <see cref="DbDataReader"/> instance.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <returns>A <see cref="DbDataReader"/> instance of the executed <see cref="Sql"/> object.</returns>
         public virtual DbDataReader GetReader(IDbProvider dbProvider)
         {
             return this.GetReader(dbProvider, null);
         }
 
         /// <summary>
-        /// 
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter,
+        /// returns a <see cref="DbDataReader"/> instance.
         /// </summary>
-        /// <param name="dbProvider"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
+        /// <returns>A <see cref="DbDataReader"/> instance of the executed <see cref="Sql"/> object.</returns>
         public virtual DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters)
         {
             DbDataReader reader = null;
@@ -191,9 +205,9 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new object that is a copy of this instance.</returns>
         public override object Clone()
         {
             Sql cloneResult = new Sql();
@@ -203,18 +217,18 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Copies value including all child <see cref="SqlClause"/> items from current instance to target object.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">The target object to copy value to.</param>
         public virtual void CopyValueTo(Sql target)
         {
             CopyValueTo(this, target);
         }
 
         /// <summary>
-        /// 
+        /// Converts this instance to sql command text string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The sql command text string defined by this instance.</returns>
         public override string ToString()
         {
             string result = base.ToString();

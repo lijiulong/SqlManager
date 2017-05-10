@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace Franksoft.SqlManager.Definition
 {
     /// <summary>
-    /// 
+    /// A class represents the definition of sql command parts used to build a complete sql command.
     /// </summary>
     [Serializable]
     public class SqlClause : ICloneable
@@ -51,33 +51,34 @@ namespace Franksoft.SqlManager.Definition
         #endregion
 
         /// <summary>
-        /// 
+        /// Gets or sets the <see cref="SqlKeywords"/> value of this instance.
         /// </summary>
         [XmlAttribute]
         public SqlKeywords Keyword { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the <see cref="SqlLogicalOperator"/> value of this instance.
         /// </summary>
         [XmlAttribute]
         public SqlLogicalOperator LogicalOperator { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the sql expression of this instance.
+        /// This expression will be put before child item expressions when building sql command.
         /// </summary>
         [XmlAttribute]
         public string Expression { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets list of child <see cref="SqlClause"/> objects for this instance.
         /// </summary>
         public List<SqlClause> ChildItems { get; set; }
 
         /// <summary>
-        /// 
+        /// Copies value including all child <see cref="SqlClause"/> items from source object to target object.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
+        /// <param name="source">The source object to copy value from.</param>
+        /// <param name="target">The target object to copy value to.</param>
         public static void CopyValueTo(SqlClause source, SqlClause target)
         {
             target.Keyword = source.Keyword;
@@ -101,9 +102,9 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new object that is a copy of this instance.</returns>
         public virtual object Clone()
         {
             SqlClause cloneResult = new SqlClause();
@@ -113,18 +114,18 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Copies value including all child <see cref="SqlClause"/> items from current instance to target object.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">The target object to copy value to.</param>
         public virtual void CopyValueTo(SqlClause target)
         {
             CopyValueTo(this, target);
         }
 
         /// <summary>
-        /// 
+        /// Converts this instance to sql command text string part.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The sql command text string part defined by this instance.</returns>
         public override string ToString()
         {
             string result = string.Empty;
@@ -187,10 +188,10 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Converts one specific <see cref="SqlKeywords"/> value to string.
         /// </summary>
-        /// <param name="keyword"></param>
-        /// <returns></returns>
+        /// <param name="keyword">The <see cref="SqlKeywords"/> value to convert.</param>
+        /// <returns>The string value of the <see cref="SqlKeywords"/> parameter.</returns>
         private string GetKeyword(SqlKeywords keyword)
         {
             string result = string.Empty;
@@ -246,10 +247,10 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Converts one specific <see cref="SqlLogicalOperator"/> value to string.
         /// </summary>
-        /// <param name="logicalOperator"></param>
-        /// <returns></returns>
+        /// <param name="logicalOperator">The <see cref="SqlLogicalOperator"/> value to convert.</param>
+        /// <returns>The string value of the <see cref="SqlLogicalOperator"/> parameter.</returns>
         private string GetLogicalOperator(SqlLogicalOperator logicalOperator)
         {
             string result = string.Empty;
@@ -271,10 +272,11 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Adds one empty space before the expression in parameter,
+        /// and makes sure there is no extra space before or after the expression.
         /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
+        /// <param name="expression">The expression to add an empty space before.</param>
+        /// <returns>The expression with one empty space at the start and no space at the end.</returns>
         private string AddEmptySpaceBefore(string expression)
         {
             string result = expression;
@@ -288,10 +290,11 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// 
+        /// Adds one empty space after the expression in parameter,
+        /// and makes sure there is no extra space before or after the expression.
         /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
+        /// <param name="expression">The expression to add an empty space after.</param>
+        /// <returns>The expression with one empty space at the end and no space at the start.</returns>
         private string AddEmptySpaceAfter(string expression)
         {
             string result = expression;
