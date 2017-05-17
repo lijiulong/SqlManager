@@ -34,6 +34,10 @@ namespace Franksoft.SqlManager.Definition
 
         private const string SQLKEYWORDS_EQUALVALUES = "=";
 
+        private const string SQLKEYWORDS_EXISTS = "EXISTS";
+
+        private const string SQLKEYWORDS_IN = "IN";
+
         private const string SQLKEYWORDS_BEGIN = "BEGIN";
 
         private const string SQLKEYWORDS_END = "END";
@@ -167,7 +171,9 @@ namespace Franksoft.SqlManager.Definition
             }
 
             result = this.AddEmptySpaceAfter(result);
+
             if (this.Keyword == SqlKeywords.Exists
+                || this.Keyword == SqlKeywords.In
                 || this.Keyword == SqlKeywords.Fields
                 || this.Keyword == SqlKeywords.SetFields
                 || this.Keyword == SqlKeywords.Values
@@ -229,14 +235,20 @@ namespace Franksoft.SqlManager.Definition
                 case SqlKeywords.SetFields:
                     result = SQLKEYWORDS_SET;
                     break;
+                case SqlKeywords.EqualValues:
+                    result = SQLKEYWORDS_EQUALVALUES;
+                    break;
+                case SqlKeywords.Exists:
+                    result = SQLKEYWORDS_EXISTS;
+                    break;
+                case SqlKeywords.In:
+                    result = SQLKEYWORDS_IN;
+                    break;
                 case SqlKeywords.Begin:
                     result = SQLKEYWORDS_BEGIN;
                     break;
                 case SqlKeywords.End:
                     result = SQLKEYWORDS_END;
-                    break;
-                case SqlKeywords.EqualValues:
-                    result = SQLKEYWORDS_EQUALVALUES;
                     break;
                 case SqlKeywords.Fields:
                 default:
