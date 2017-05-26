@@ -6,8 +6,14 @@ using System.Reflection;
 
 namespace Franksoft.SqlManager
 {
+    /// <summary>
+    /// An internal class to read application settings and query definition file pathes.
+    /// </summary>
     internal sealed class Initializer
     {
+        /// <summary>
+        /// Static constructor to initialize singleton instance of SqlManager.
+        /// </summary>
         static Initializer()
         {
             if (Instance == null)
@@ -16,38 +22,85 @@ namespace Franksoft.SqlManager
             }
         }
 
+        /// <summary>
+        /// Private constructor ensures singleton.
+        /// </summary>
         private Initializer()
         {
             InitializeMembers();
             InitializeConfiguration();
         }
 
+        /// <summary>
+        /// Const string value for the name of model registration section in application settings file.
+        /// </summary>
         private const string MODEL_REGISTRATION_SECTION_NAME = "ModelRegistrations";
 
+        /// <summary>
+        /// Const string value for the default value of ModelDirectory configuration item in application settings file.
+        /// </summary>
         private const string MODEL_DIRECTORY_DEFAULT_VALUE = @".\";
 
+        /// <summary>
+        /// Const string value for key of ModelDirectory config item in application settings file.
+        /// </summary>
         private const string MODEL_DIRECTORY_CONFIG_KEY = "SqlManager.ModelDirectory";
 
+        /// <summary>
+        /// Const boolean value for the default value of IgnoreDuplicateKeys
+        /// config item in application settings file.
+        /// </summary>
         private const bool IGNORE_DUPLICATE_KEYS_DEFAULT_VALUE = false;
 
+        /// <summary>
+        /// Const string value for key of IgnoreDuplicateKeys config item in application settings file.
+        /// </summary>
         private const string IGNORE_DUPLICATE_KEYS_CONFIG_KEY = "SqlManager.IgnoreDuplicateKeys";
 
+        /// <summary>
+        /// Const boolean value for the default value of UseAppDomainForRelativePath
+        /// config item in application settings file.
+        /// </summary>
         private const bool USE_APPDOMAIN_DEFAULT_VALUE = false;
 
+        /// <summary>
+        /// Const string value for key of UseAppDomainForRelativePath config item in application settings file.
+        /// </summary>
         private const string USE_APPDOMAIN_CONFIG_KEY = "SqlManager.UseAppDomainForRelativePath";
 
+        /// <summary>
+        /// Gets or sets list of registered query definition file pathes.
+        /// </summary>
         private List<string> Models { get; set; }
 
+        /// <summary>
+        /// Gets the singleton instance of <see cref="Initializer"/>.
+        /// </summary>
         public static Initializer Instance { get; private set; }
 
+        /// <summary>
+        /// Gets the value of ModelDirectory config item.
+        /// </summary>
         public string ModelDirectory { get; private set; }
 
+        /// <summary>
+        /// Gets the value of IgnoreDuplicateKeys config item.
+        /// </summary>
         public bool IgnoreDuplicateKeys { get; private set; }
 
+        /// <summary>
+        /// Gets the value of UseAppDomainForRelativePath config item.
+        /// </summary>
         public bool UseAppDomainForRelativePath { get; private set; }
 
+        /// <summary>
+        /// Gets the value of base directory for all relative pathes.
+        /// </summary>
         public string RelativePathBase { get; private set; }
 
+        /// <summary>
+        /// Gets collection of registered query definition file pathes.
+        /// </summary>
         public ICollection<string> ModelRegistration
         {
             get
@@ -56,11 +109,19 @@ namespace Franksoft.SqlManager
             }
         }
 
+        /// <summary>
+        /// Gets the full path of relative path, if the path is not relative path, it will be returned unchanged.
+        /// </summary>
+        /// <param name="relativePath">The relative path need to get full path.</param>
+        /// <returns>String value of full path.</returns>
         public string ProcessRelativePath(string relativePath)
         {
             return Path.Combine(this.RelativePathBase, relativePath);
         }
 
+        /// <summary>
+        /// Initializes all members in the instance.
+        /// </summary>
         private void InitializeMembers()
         {
             this.Models = new List<string>();
@@ -69,6 +130,9 @@ namespace Franksoft.SqlManager
             this.UseAppDomainForRelativePath = USE_APPDOMAIN_DEFAULT_VALUE;
         }
 
+        /// <summary>
+        /// Initializes query definition file pathes and other configuration item values.
+        /// </summary>
         private void InitializeConfiguration()
         {
             string useAppDomainForRelativePath = ConfigurationManager.AppSettings[USE_APPDOMAIN_CONFIG_KEY];

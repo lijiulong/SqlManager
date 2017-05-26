@@ -16,7 +16,7 @@ namespace Franksoft.SqlManager
     public sealed class SqlManager
     {
         /// <summary>
-        /// Static constructor to initialize singleton instance of SqlManager.
+        /// Static constructor to initialize singleton instance of <see cref="SqlManager"/>.
         /// </summary>
         static SqlManager()
         {
@@ -63,7 +63,7 @@ namespace Franksoft.SqlManager
         private XmlSerializer StandaloneQueriesXmlSerializer { get; set; }
 
         /// <summary>
-        /// Gets the singleton instance of SqlManager.
+        /// Gets the singleton instance of <see cref="SqlManager"/>.
         /// </summary>
         public static SqlManager Instance { get; private set; }
 
@@ -73,7 +73,7 @@ namespace Franksoft.SqlManager
         public Dictionary<string, Sql> StandaloneQueries { get; private set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="IDbProvider"/> instance of SqlManager.
+        /// Gets or sets the <see cref="IDbProvider"/> instance of <see cref="SqlManager"/>.
         /// </summary>
         public IDbProvider DbProvider { get; set; }
 
