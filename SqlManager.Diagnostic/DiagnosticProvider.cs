@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 
 using Franksoft.SqlManager.DbProviders;
-using Franksoft.SqlManager.Definition;
 
 namespace Franksoft.SqlManager.Diagnostic
 {
+    /// <summary>
+    /// A wrapper class for all kinds of <see cref="IDbProvider"/> classes provided by SqlManager,
+    /// with additional events before and after each call of query methods inside the class.
+    /// </summary>
     public class DiagnosticProvider : BaseDbProvider
     {
+        /// <summary>
+        /// Initializes <see cref="DiagnosticProvider"/> instance with specific <see cref="IDbProvider"/> instance.
+        /// </summary>
+        /// <param name="dbProvider">
+        /// <see cref="IDbProvider"/> instance used to initialize <see cref="DiagnosticProvider"/> instance.
+        /// </param>
         public DiagnosticProvider(IDbProvider dbProvider)
         {
             this.DbProvider = dbProvider;
         }
 
+        /// <summary>
+        /// Gets the <see cref="DbDataAdapter"/> object inside this <see cref="DiagnosticProvider"/>.
+        /// </summary>
         public override DbDataAdapter Adapter
         {
             get
@@ -25,6 +35,9 @@ namespace Franksoft.SqlManager.Diagnostic
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="DbCommand"/> object inside this <see cref="DiagnosticProvider"/>.
+        /// </summary>
         public override DbCommand Command
         {
             get
@@ -33,6 +46,9 @@ namespace Franksoft.SqlManager.Diagnostic
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="DbConnection"/> object inside this <see cref="DiagnosticProvider"/>.
+        /// </summary>
         public override DbConnection Connection
         {
             get
@@ -41,44 +57,104 @@ namespace Franksoft.SqlManager.Diagnostic
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IDbProvider"/> instance inside this <see cref="DiagnosticProvider"/>.
+        /// </summary>
         public IDbProvider DbProvider { get; set; }
 
         #region Diagnostic Events
 
+        /// <summary>
+        /// Occurs when method <see cref="BeginTransaction()"/> or <see cref="BeginTransaction(IsolationLevel)"/>
+        /// is executed and value has returned.
+        /// </summary>
         public event AfterMethodEventHandler AfterBeginTransaction;
 
+        /// <summary>
+        /// Occurs when method <see cref="Dispose()"/> is executed and value has returned.
+        /// </summary>
         public event AfterMethodEventHandler AfterDispose;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteNonQuery()"/> is executed and value has returned.
+        /// </summary>
         public event AfterSqlEventHandler AfterExecuteNonQuery;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteReader()"/> or <see cref="ExecuteReader(CommandBehavior)"/>
+        /// is executed and value has returned.
+        /// </summary>
         public event AfterSqlEventHandler AfterExecuteReader;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteScalar()"/> is executed and value has returned.
+        /// </summary>
         public event AfterSqlEventHandler AfterExecuteScalar;
 
+        /// <summary>
+        /// Occurs when method <see cref="Fill(DataTable)"/> is executed and value has returned.
+        /// </summary>
         public event AfterSqlEventHandler AfterFill;
 
+        /// <summary>
+        /// Occurs when method <see cref="Initialize(string)"/> is executed and value has returned.
+        /// </summary>
         public event AfterMethodEventHandler AfterInitialize;
 
+        /// <summary>
+        /// Occurs when method <see cref="Update(DataTable)"/> is executed and value has returned.
+        /// </summary>
         public event AfterSqlEventHandler AfterUpdate;
 
+        /// <summary>
+        /// Occurs when method <see cref="BeginTransaction()"/> or <see cref="BeginTransaction(IsolationLevel)"/>
+        /// is called and not executed yet.
+        /// </summary>
         public event BeforeMethodEventHandler BeforeBeginTransaction;
 
+        /// <summary>
+        /// Occurs when method <see cref="Dispose()"/> is called and not executed yet.
+        /// </summary>
         public event BeforeMethodEventHandler BeforeDispose;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteNonQuery()"/> is called and not executed yet.
+        /// </summary>
         public event BeforeSqlEventHandler BeforeExecuteNonQuery;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteReader()"/> or <see cref="ExecuteReader(CommandBehavior)"/>
+        /// is called and not executed yet.
+        /// </summary>
         public event BeforeSqlEventHandler BeforeExecuteReader;
 
+        /// <summary>
+        /// Occurs when method <see cref="ExecuteScalar()"/> is called and not executed yet.
+        /// </summary>
         public event BeforeSqlEventHandler BeforeExecuteScalar;
 
+        /// <summary>
+        /// Occurs when method <see cref="Fill(DataTable)"/> is called and not executed yet.
+        /// </summary>
         public event BeforeSqlEventHandler BeforeFill;
 
+        /// <summary>
+        /// Occurs when method <see cref="Initialize(string)"/> is called and not executed yet.
+        /// </summary>
         public event BeforeMethodEventHandler BeforeInitialize;
 
+        /// <summary>
+        /// Occurs when method <see cref="Update(DataTable)"/> is called and not executed yet.
+        /// </summary>
         public event BeforeSqlEventHandler BeforeUpdate;
 
         #endregion
 
+        /// <summary>
+        /// Starts a database transaction, triggers <see cref="BeforeBeginTransaction"/> before this call,
+        /// and <see cref="AfterBeginTransaction"/> after this call.
+        /// </summary>
+        /// <returns>An object representing the new transaction.</returns>
         public override DbTransaction BeginTransaction()
         {
             BeforeEventArgs be = new BeforeEventArgs("BeginTransaction");
@@ -102,6 +178,13 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Starts a database transaction with the specified isolation level,
+        /// triggers <see cref="BeforeBeginTransaction"/> before this call,
+        /// and <see cref="AfterBeginTransaction"/> after this call.
+        /// </summary>
+        /// <param name="il">Specifies the isolation level for the transaction.</param>
+        /// <returns>An object representing the new transaction.</returns>
         public override DbTransaction BeginTransaction(IsolationLevel il)
         {
             BeforeEventArgs be = new BeforeEventArgs("BeginTransaction");
@@ -127,6 +210,11 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Aids implementation of the <see cref="IDisposable"/> interface.
+        /// Properties will be disposed and <see cref="GC.Collect()"/> will be executed.
+        /// Triggers <see cref="BeforeDispose"/> before this call, and <see cref="AfterDispose"/> after this call.
+        /// </summary>
         public override void Dispose()
         {
             BeforeEventArgs be = new BeforeEventArgs("Dispose");
@@ -145,6 +233,12 @@ namespace Franksoft.SqlManager.Diagnostic
             AfterDispose?.Invoke(this, ae);
         }
 
+        /// <summary>
+        /// Executes the <see cref="IDbProvider.CommandText"/> against the <see cref="Connection"/> object.
+        /// Triggers <see cref="BeforeExecuteNonQuery"/> before this call,
+        /// and <see cref="AfterExecuteNonQuery"/> after this call.
+        /// </summary>
+        /// <returns>The number of rows affected.</returns>
         public override int ExecuteNonQuery()
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteNonQuery");
@@ -175,6 +269,15 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Executes the <see cref="IDbProvider.CommandText"/> against the <see cref="Connection"/> object, 
+        /// returns a <see cref="DbDataReader"/> instance.
+        /// Triggers <see cref="BeforeExecuteReader"/> before this call,
+        /// and <see cref="AfterExecuteReader"/> after this call.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="DbDataReader"/> instance of the executed <see cref="IDbProvider.CommandText"/>.
+        /// </returns>
         public override DbDataReader ExecuteReader()
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteReader");
@@ -205,6 +308,16 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Executes the <see cref="IDbProvider.CommandText"/> against the <see cref="Connection"/> object, 
+        /// returns a <see cref="DbDataReader"/> instance using one of the <see cref="CommandBehavior"/>.
+        /// Triggers <see cref="BeforeExecuteReader"/> before this call,
+        /// and <see cref="AfterExecuteReader"/> after this call.
+        /// </summary>
+        /// <param name="behavior">One of the <see cref="CommandBehavior"/> values.</param>
+        /// <returns>
+        /// A <see cref="DbDataReader"/> instance of the executed <see cref="IDbProvider.CommandText"/>.
+        /// </returns>
         public override DbDataReader ExecuteReader(CommandBehavior behavior)
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteReader");
@@ -237,6 +350,13 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Executes the query and returns the first column of the first row in the result set returned by the query. 
+        /// All other columns and rows are ignored.
+        /// Triggers <see cref="BeforeExecuteScalar"/> before this call,
+        /// and <see cref="AfterExecuteScalar"/> after this call.
+        /// </summary>
+        /// <returns>First column of the first row in the result set returned by the query.</returns>
         public override object ExecuteScalar()
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "ExecuteScalar");
@@ -267,6 +387,15 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Executes <see cref="IDbProvider.CommandText"/> with <see cref="DbDataAdapter.Fill(DataTable)"/>.
+        /// Triggers <see cref="BeforeFill"/> before this call, and <see cref="AfterFill"/> after this call.
+        /// </summary>
+        /// <param name="dataTable">The name of the <see cref="DataTable"/> to use for table mapping.</param>
+        /// <returns>
+        /// The number of rows successfully added to or refreshed in the <see cref="DataSet"/>. 
+        /// This does not include rows affected by statements that do not return rows.
+        /// </returns>
         public override int Fill(DataTable dataTable)
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "Fill");
@@ -299,6 +428,18 @@ namespace Franksoft.SqlManager.Diagnostic
             return result;
         }
 
+        /// <summary>
+        /// Initializes <see cref="IDbProvider"/> instance with the specified connection string.
+        /// Triggers <see cref="BeforeInitialize"/> before this call,
+        /// and <see cref="AfterInitialize"/> after this call.
+        /// <para>
+        /// This method is designed to support reusing a provider instance among different connection strings. 
+        /// The idea is to avoid creating new instance, but only to execute this method when changing connection
+        /// string. It is necessary to initialize <see cref="Adapter"/>, <see cref="Command"/> and 
+        /// <see cref="Connection"/> properties here.
+        /// </para>
+        /// </summary>
+        /// <param name="connectionString">Connection string for this <see cref="IDbProvider"/> instance.</param>
         public override void Initialize(string connectionString)
         {
             BeforeEventArgs be = new BeforeEventArgs("Initialize");
@@ -319,6 +460,12 @@ namespace Franksoft.SqlManager.Diagnostic
             AfterInitialize?.Invoke(this, ae);
         }
 
+        /// <summary>
+        /// Executes <see cref="IDbProvider.CommandText"/> with <see cref="DbDataAdapter.Update(DataTable)"/>.
+        /// Triggers <see cref="BeforeUpdate"/> before this call, and <see cref="AfterUpdate"/> after this call.
+        /// </summary>
+        /// <param name="dataTable">The <see cref="DataTable"/> used to update the data source.</param>
+        /// <returns>The number of rows successfully updated from the <see cref="DataTable"/>.</returns>
         public override int Update(DataTable dataTable)
         {
             BeforeSqlEventArgs be = new BeforeSqlEventArgs(DiagnosticHelper.ParseSqlKeywords(this.CommandText), "Update");

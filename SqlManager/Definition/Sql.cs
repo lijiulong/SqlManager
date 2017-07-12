@@ -65,7 +65,7 @@ namespace Franksoft.SqlManager.Definition
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
         /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
-        /// <returns></returns>
+        /// <returns>The number of rows affected.</returns>
         public virtual int ExecuteNonQuery(IDbProvider dbProvider, DbParameter[] parameters)
         {
             int result = -1;
@@ -111,7 +111,8 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter.
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter via
+        /// <see cref="IDbProvider.Fill(DataTable)"/>.
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
         /// <returns>
@@ -124,7 +125,8 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter.
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter via
+        /// <see cref="IDbProvider.Fill(DataTable)"/>.
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
         /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
@@ -145,7 +147,8 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter.
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter via
+        /// <see cref="IDbProvider.Update(DataTable)"/>.
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
         /// <param name="dataTable">The <see cref="DataTable"/> used to update the data source.</param>
@@ -156,7 +159,8 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter.
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter via
+        /// <see cref="IDbProvider.Update(DataTable)"/>.
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
         /// <param name="dataTable">The <see cref="DataTable"/> used to update the data source.</param>

@@ -6,8 +6,16 @@ using Franksoft.SqlManager.Definition;
 
 namespace Franksoft.SqlManager.Diagnostic
 {
+    /// <summary>
+    /// Provides public helper methods for diagnostic classes.
+    /// </summary>
     public static class DiagnosticHelper
     {
+        /// <summary>
+        /// Parses collection of <see cref="SqlKeywords"/> from sql command text string.
+        /// </summary>
+        /// <param name="sqlCommandText">Sql command text used to parse <see cref="SqlKeywords"/>.</param>
+        /// <returns>Read only collection of <see cref="SqlKeywords"/>.</returns>
         public static ReadOnlyCollection<SqlKeywords> ParseSqlKeywords(string sqlCommandText)
         {
             List<SqlKeywords> result = new List<SqlKeywords>();
@@ -62,6 +70,11 @@ namespace Franksoft.SqlManager.Diagnostic
             if (onelineSql.IndexOf(" GROUP BY ", StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 result.Add(SqlKeywords.GroupBy);
+            }
+
+            if (onelineSql.IndexOf(" IN ", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            {
+                result.Add(SqlKeywords.In);
             }
 
             if (onelineSql.IndexOf(" INSERT INTO ", StringComparison.InvariantCultureIgnoreCase) >= 0)
