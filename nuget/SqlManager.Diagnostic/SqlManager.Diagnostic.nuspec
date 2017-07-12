@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>SqlManager.Diagnostic</id>
-    <version>1.0.1.3</version>
+    <version>1.0.1.4</version>
     <authors>Frank Li</authors>
     <owners>Frank Li</owners>
     <projectUrl>https://github.com/lijiulong/SqlManager</projectUrl>
     <licenseUrl>https://github.com/lijiulong/SqlManager/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The diagnostic utilities for SqlManager. It can be used to build powerful diagnostic tools for applications using SqlManager.</description>
-    <releaseNotes>Fix a code error, correct version number, publish again to include dependency to SqlManager.</releaseNotes>
+    <releaseNotes>Source code XML comments for SqlManager.Diagnostic library finished, update package to deliver with it.</releaseNotes>
     <copyright>Franksoft 2017</copyright>
     <tags></tags>
     <dependencies>
