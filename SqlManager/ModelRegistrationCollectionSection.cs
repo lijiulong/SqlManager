@@ -10,7 +10,7 @@ namespace Franksoft.SqlManager
         /// <summary>
         /// Creates a <see cref="ModelRegistrationElement"/> instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>New <see cref="ModelRegistrationElement"/> instance.</returns>
         protected override ConfigurationElement CreateNewElement()
         {
             return new ModelRegistrationElement();

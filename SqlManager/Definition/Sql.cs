@@ -8,7 +8,7 @@ using Franksoft.SqlManager.DbProviders;
 namespace Franksoft.SqlManager.Definition
 {
     /// <summary>
-    /// A class represents the definition of one sql command inside definition file. 
+    /// A class represents the definition of one sql command inside definition file.
     /// It has a <see cref="Key"/> property which is used to find this object from the definition collection.
     /// </summary>
     [Serializable]
@@ -21,14 +21,14 @@ namespace Franksoft.SqlManager.Definition
         public string Key { get; set; }
 
         /// <summary>
-        /// Gets or sets the command text of this <see cref="Sql"/> object. 
+        /// Gets or sets the command text of this <see cref="Sql"/> object.
         /// It should not coexists with <see cref="SqlClause.ChildItems"/> property.
         /// </summary>
         [XmlAttribute]
         public string Command { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Data.CommandType"/> value of this <see cref="Sql"/> object. 
+        /// Gets or sets the <see cref="System.Data.CommandType"/> value of this <see cref="Sql"/> object.
         /// This property is preseved for future development.
         /// </summary>
         [XmlAttribute]
@@ -190,7 +190,7 @@ namespace Franksoft.SqlManager.Definition
         }
 
         /// <summary>
-        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter,
+        /// Executes this <see cref="Sql"/> object with parameters against the <see cref="IDbProvider"/> parameter,
         /// returns a <see cref="DbDataReader"/> instance.
         /// </summary>
         /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
@@ -204,6 +204,26 @@ namespace Franksoft.SqlManager.Definition
             dbProvider.Parameters = parameters;
             dbProvider.CommandType = this.CommandType;
             reader = dbProvider.ExecuteReader();
+
+            return reader;
+        }
+
+        /// <summary>
+        /// Executes this <see cref="Sql"/> object against the <see cref="IDbProvider"/> parameter,
+        /// returns a <see cref="DbDataReader"/> instance using one of the <see cref="CommandBehavior"/>.
+        /// </summary>
+        /// <param name="dbProvider">The <see cref="IDbProvider"/> object to execute this sql command.</param>
+        /// <param name="parameters">The <see cref="DbParameter"/> objects to execute this sql command.</param>
+        /// <param name="behavior">One of the <see cref="CommandBehavior"/> values.</param>
+        /// <returns>A <see cref="DbDataReader"/> instance of the executed <see cref="Sql"/> object.</returns>
+        public virtual DbDataReader GetReader(IDbProvider dbProvider, DbParameter[] parameters, CommandBehavior behavior)
+        {
+            DbDataReader reader = null;
+
+            dbProvider.CommandText = this.ToString();
+            dbProvider.Parameters = parameters;
+            dbProvider.CommandType = this.CommandType;
+            reader = dbProvider.ExecuteReader(behavior);
 
             return reader;
         }

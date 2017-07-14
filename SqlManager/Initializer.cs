@@ -32,11 +32,6 @@ namespace Franksoft.SqlManager
         }
 
         /// <summary>
-        /// Const string value for the name of model registration section in application settings file.
-        /// </summary>
-        private const string MODEL_REGISTRATION_SECTION_NAME = "ModelRegistrations";
-
-        /// <summary>
         /// Const string value for the default value of ModelDirectory configuration item in application settings file.
         /// </summary>
         private const string MODEL_DIRECTORY_DEFAULT_VALUE = @".\";
@@ -56,6 +51,11 @@ namespace Franksoft.SqlManager
         /// Const string value for key of IgnoreDuplicateKeys config item in application settings file.
         /// </summary>
         private const string IGNORE_DUPLICATE_KEYS_CONFIG_KEY = "SqlManager.IgnoreDuplicateKeys";
+
+        /// <summary>
+        /// Const string value for the name of model registration section in application settings file.
+        /// </summary>
+        private const string MODEL_REGISTRATION_SECTION_NAME = "ModelRegistrations";
 
         /// <summary>
         /// Const boolean value for the default value of UseAppDomainForRelativePath
@@ -105,7 +105,7 @@ namespace Franksoft.SqlManager
         {
             get
             {
-                return this.Models;
+                return this.Models.AsReadOnly();
             }
         }
 

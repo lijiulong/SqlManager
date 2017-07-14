@@ -13,7 +13,7 @@ namespace Franksoft.SqlManager
         public const string PATH_COLLECTION_NAME_STRING = "pathes";
 
         /// <summary>
-        /// Gets and sets the value of <see cref="ModelRegistrationCollectionSection"/>.
+        /// Gets or sets the value of <see cref="ModelRegistrationCollectionSection"/>.
         /// </summary>
         [ConfigurationProperty(PATH_COLLECTION_NAME_STRING, IsDefaultCollection = false)]
         [ConfigurationCollection(typeof(ModelRegistrationCollectionSection))]

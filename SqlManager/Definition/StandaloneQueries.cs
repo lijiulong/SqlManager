@@ -12,7 +12,7 @@ namespace Franksoft.SqlManager.Definition
     public class StandaloneQueries : List<Sql>
     {
         /// <summary>
-        /// Converts this collection instance to <see cref="Dictionary{string, Franksoft.SqlManager.Definition.Sql}"/>.
+        /// Converts this collection instance to dictionary.
         /// </summary>
         /// <param name="ignoreDuplicateKeys">
         /// If this parameter is set to false, a <see cref="KeyDuplicateException"/> error will be thrown
@@ -21,9 +21,7 @@ namespace Franksoft.SqlManager.Definition
         /// <exception cref="KeyDuplicateException">
         /// Duplicated key is found during the convertion and the parameter "ignoreDuplicateKeys" is set to false.
         /// </exception>
-        /// <returns>
-        /// The <see cref="Dictionary{string, Franksoft.SqlManager.Definition.Sql}"/> instance contains key and value.
-        /// </returns>
+        /// <returns>The dictionary instance contains key and value.</returns>
         public Dictionary<string, Sql> ToDictionary(bool ignoreDuplicateKeys)
         {
             var dictionary = new Dictionary<string, Sql>();

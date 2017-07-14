@@ -6,11 +6,11 @@
   <appSettings>
     <add key="SqlManager.MockDirectory" value="mocks"/>
   </appSettings>
-  <MockRegistrationSection>
+  <MockRegistrations>
     <pathes>
       <add path="mocks\01.xml"/>
       <add path="mocks\02.xml"/>
       <add path="mocks\03.xml"/>
     </pathes>
-  </MockRegistrationSection>
+  </MockRegistrations>
 </configuration>

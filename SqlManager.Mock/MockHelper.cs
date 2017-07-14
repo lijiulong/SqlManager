@@ -2,8 +2,17 @@
 
 namespace Franksoft.SqlManager.Mock
 {
-    internal static class MockHelper
+    /// <summary>
+    /// Provides public helper methods for mock classes.
+    /// </summary>
+    public static class MockHelper
     {
+        /// <summary>
+        /// Converts raw data string value to specified data type.
+        /// </summary>
+        /// <param name="type">Target type to convert the raw data string.</param>
+        /// <param name="rawDataToConvert">Raw data string value to convert.</param>
+        /// <returns>Converted value in specified data type.</returns>
         public static object ConvertToType(Type type, string rawDataToConvert)
         {
             object result = rawDataToConvert;

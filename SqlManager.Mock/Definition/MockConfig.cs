@@ -7,45 +7,97 @@ using System.Xml.Serialization;
 
 namespace Franksoft.SqlManager.Mock.Definition
 {
+    /// <summary>
+    /// A class represents the configuration for mock such as where to execute this sql query.
+    /// </summary>
     [Serializable]
     public class MockConfig
     {
+        /// <summary>
+        /// Const string value for the default value of <see cref="Delimiter"/> property.
+        /// </summary>
         private const string DELIMITER_DEFAULT_VALUE = ",";
 
+        /// <summary>
+        /// Const string value for the default value of <see cref="EncodingName"/> property.
+        /// </summary>
         private const string ENCODING_NAME_DEFAULT_VALUE = "ASCII";
 
+        /// <summary>
+        /// Const string value for the template of column name default value.
+        /// </summary>
         private const string COLUMN_NAME_DEFAULT_VALUE_TEMPLATE = "COLUMN{0}";
 
+        /// <summary>
+        /// Gets or sets column header name list.
+        /// </summary>
         private List<string> HeaderList { get; set; }
 
+        /// <summary>
+        /// Gets or sets column type list.
+        /// </summary>
         private List<Type> TypeList { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="DataTable"/> object contains data read from CSV file.
+        /// </summary>
         private DataTable DataTableSource { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sequence for this <see cref="MockConfig"/> item.
+        /// </summary>
         [XmlAttribute]
         public int Sequence { get; set; }
 
+        /// <summary>
+        /// Gets or sets the repeat times for this <see cref="MockConfig"/> item. If this property is set to 0, this
+        /// item will always repeat.
+        /// </summary>
         [XmlAttribute]
         public int Repeat { get; set; }
 
+        /// <summary>
+        /// Gets or sets the connection string for this <see cref="MockConfig"/> item when database is used as
+        /// data source.
+        /// </summary>
         [XmlAttribute]
         public string ConnectionString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the CSV file path for this <see cref="MockConfig"/> item when CSV file is used as data source.
+        /// </summary>
         [XmlAttribute]
         public string CsvFilePath { get; set; }
 
+        /// <summary>
+        /// Gets or sets the delimiter for this <see cref="MockConfig"/> item when CSV file is used as data source.
+        /// </summary>
         [XmlAttribute]
         public string Delimiter { get; set; }
 
+        /// <summary>
+        /// Gets or sets the encoding name for this <see cref="MockConfig"/> item when CSV file is used as data source.
+        /// </summary>
         [XmlAttribute]
         public string EncodingName { get; set; }
 
+        /// <summary>
+        /// Gets or sets if header is included for this <see cref="MockConfig"/> item when CSV file is used as data
+        /// source.
+        /// </summary>
         [XmlAttribute]
         public bool IsIncludeHeader { get; set; }
 
+        /// <summary>
+        /// Gets or sets if data type is included for this <see cref="MockConfig"/> item when CSV file is used as data
+        /// source.
+        /// </summary>
         [XmlAttribute]
         public bool IsIncludeType { get; set; }
 
+        /// <summary>
+        /// Gets the column header strings for this <see cref="MockConfig"/> item when CSV file is used as data source.
+        /// </summary>
         [XmlIgnore]
         public IList<string> Headers
         {
@@ -55,6 +107,9 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        /// <summary>
+        /// Gets the column types for this <see cref="MockConfig"/> item when CSV file is used as data source.
+        /// </summary>
         [XmlIgnore]
         public IList<Type> Types
         {
@@ -64,6 +119,10 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="System.Data.DataTable"/> object contains data read from CSV file when CSV file is used
+        /// as data source.
+        /// </summary>
         [XmlIgnore]
         public DataTable DataTable
         {
@@ -73,6 +132,9 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        /// <summary>
+        /// Initializes this <see cref="MockConfig"/> object when <see cref="CsvFilePath"/> has value.
+        /// </summary>
         public void Initialize()
         {
             if (string.IsNullOrEmpty(this.ConnectionString) && string.IsNullOrEmpty(this.CsvFilePath))
@@ -86,6 +148,9 @@ namespace Franksoft.SqlManager.Mock.Definition
             }
         }
 
+        /// <summary>
+        /// Initializes data inside configured CSV file according to configurations related to CSV.
+        /// </summary>
         private void InitializeCsvFile()
         {
             if (string.IsNullOrEmpty(this.Delimiter))

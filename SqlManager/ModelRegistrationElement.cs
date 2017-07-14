@@ -36,7 +36,7 @@ namespace Franksoft.SqlManager
         }
 
         /// <summary>
-        /// Gets and sets the path value for the query definition file.
+        /// Gets or sets the path value for the query definition file.
         /// </summary>
         [ConfigurationProperty("path", IsRequired = true, IsKey = true)]
         public string Path
@@ -52,7 +52,7 @@ namespace Franksoft.SqlManager
         }
 
         /// <summary>
-        /// Gets and sets the description value for the query definition file.
+        /// Gets or sets the description value for the query definition file.
         /// </summary>
         [ConfigurationProperty("description", IsRequired = false)]
         public string Description

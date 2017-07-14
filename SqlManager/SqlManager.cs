@@ -58,7 +58,7 @@ namespace Franksoft.SqlManager
         }
 
         /// <summary>
-        /// Gets or set XmlSerializer for StandaloneQueries files.
+        /// Gets or sets XmlSerializer for StandaloneQueries files.
         /// </summary>
         private XmlSerializer StandaloneQueriesXmlSerializer { get; set; }
 
