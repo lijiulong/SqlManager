@@ -103,8 +103,12 @@ refer to [LICENSE](LICENSE).
     Publish again to include dependency to SqlManager.
 * SqlManager.Mock: 1.0.0.2  
     Publish again to include dependency to SqlManager.
-* SqlManager.Diagnostic: 1.0.1.4  
-    Source code XML comments for SqlManager.Diagnostic library finished, update package to deliver with it.
+* SqlManager.Diagnostic: 1.1.2.1  
+    Fix a code error, use Microsoft version standard from this version.
+
+### 2017-08-31
+* SqlManager.Diagnostic: 1.1.2.1  
+    Fix a code error, use Microsoft version standard from this version.
 
 ### 2017-07-12
 * SqlManager.Diagnostic: 1.0.1.4  

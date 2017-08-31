@@ -26,11 +26,14 @@ namespace Franksoft.SqlManager.Diagnostic
         /// <param name="isCanceled">
         /// Whether the method is canceled in <see cref="BeforeMethodEventHandler"/> typed events.
         /// </param>
-        public AfterEventArgs(string methodName, ArrayList methodParameters, ArrayList outputValues, 
+        public AfterEventArgs(string methodName, ArrayList methodParameters, ArrayList outputValues,
             int executedTime, bool isCanceled)
         {
             this.MethodName = methodName;
-            this.MethodParameters = ArrayList.ReadOnly(methodParameters);
+            if (methodParameters != null)
+            {
+                this.MethodParameters = ArrayList.ReadOnly(methodParameters);
+            }
             this.OutputValues = outputValues;
             this.ExecutedTime = executedTime;
             this.IsCanceled = isCanceled;

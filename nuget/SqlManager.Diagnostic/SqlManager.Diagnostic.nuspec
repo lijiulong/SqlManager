@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SqlManager.Diagnostic</id>
-    <version>1.0.1.4</version>
+    <version>1.1.2.1</version>
     <authors>Frank Li</authors>
     <owners>Frank Li</owners>
     <projectUrl>https://github.com/lijiulong/SqlManager</projectUrl>
