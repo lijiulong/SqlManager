@@ -9,7 +9,7 @@
     <licenseUrl>https://github.com/lijiulong/SqlManager/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The diagnostic utilities for SqlManager. It can be used to build powerful diagnostic tools for applications using SqlManager.</description>
-    <releaseNotes>Source code XML comments for SqlManager.Diagnostic library finished, update package to deliver with it.</releaseNotes>
+    <releaseNotes>Fix a code error, use Microsoft version standard from this version.</releaseNotes>
     <copyright>Franksoft 2017</copyright>
     <tags></tags>
     <dependencies>
